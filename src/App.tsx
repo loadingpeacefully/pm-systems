@@ -2,6 +2,7 @@
 import "./App.css";
 
 type Status = "Live" | "Draft" | "Planned";
+<h1 className="text-4xl font-bold text-emerald-400">PM Systems</h1>
 
 type SystemLink = {
   title: string;
