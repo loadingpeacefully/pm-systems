@@ -6,7 +6,7 @@ export type ProjectId =
 
 export const PROJECTS: Array<{ id: ProjectId; title: string; category: string }> = [
   { id: "P1", title: "Geeta AI", category: "AI Product" },
-  { id: "P2", title: "Numon OS", category: "Platform" },
+  { id: "P2", title: "Adhyayan", category: "Gamified LMS" }, // ✅ RENAMED from Numon OS
   { id: "P3", title: "Fleet Intel", category: "Data Ops" },
   { id: "P4", title: "Commerce V2", category: "Growth" },
   { id: "P5", title: "Agent Swarm", category: "Automation" },
@@ -21,9 +21,13 @@ export const PROJECT_PAGE_MAP: Record<
   ProjectId,
   React.LazyExoticComponent<React.ComponentType<any>>
 > = {
-  // ✅ EXACT MATCH to your terminal output: GeetaAI
+  // ✅ P1: Geeta AI (Unlocked)
   P1: React.lazy(() => import("./P1/GeetaAI")),
-  P2: React.lazy(() => import("./P2/Locked")),
+
+  // ✅ P2: Adhyayan (Unlocked)
+  P2: React.lazy(() => import("./P2/Adhyayan")),
+
+  // 🔒 P3 - P10: Locked Modules
   P3: React.lazy(() => import("./P3/Locked")),
   P4: React.lazy(() => import("./P4/Locked")),
   P5: React.lazy(() => import("./P5/Locked")),
