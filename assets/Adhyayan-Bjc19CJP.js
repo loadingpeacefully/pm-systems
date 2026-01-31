@@ -1,4 +1,4 @@
-import{r as i,j as e,L as l}from"./index-lIXY3Y_V.js";function d(){return i.useEffect(()=>{const r={threshold:.1},t=new IntersectionObserver(s=>{s.forEach(a=>{a.isIntersecting&&a.target.classList.add("active")})},r);return document.querySelectorAll(".scroll-reveal").forEach(s=>t.observe(s)),()=>t.disconnect()},[]),e.jsxs("div",{className:"bg-[#050505] text-[#d1d1d1] font-sans overflow-x-hidden selection:bg-[#A855F7] selection:text-white",children:[e.jsx("style",{children:`
+import{r as i,j as e,L as l}from"./index-BtaSyBMf.js";function d(){return i.useEffect(()=>{const r={threshold:.1},t=new IntersectionObserver(s=>{s.forEach(a=>{a.isIntersecting&&a.target.classList.add("active")})},r);return document.querySelectorAll(".scroll-reveal").forEach(s=>t.observe(s)),()=>t.disconnect()},[]),e.jsxs("div",{className:"bg-[#050505] text-[#d1d1d1] font-sans overflow-x-hidden selection:bg-[#A855F7] selection:text-white",children:[e.jsx("style",{children:`
         :root {
             --purple: #A855F7;
             --crimson: #FF3131;
