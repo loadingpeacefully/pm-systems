@@ -9,7 +9,7 @@ export default function GeetaAI() {
     {
       title: "VELOCITY_BOTTLENECK",
       icon: <Activity size={18} />,
-      desc: "Manual creation was capped at ~10 worksheets/week. Highly paid SMEs spent 80% of their time wrestling with JSON syntax rather than focusing on pedagogical design."
+      desc: "SME content creation was capped at ~10 worksheets/week. Highly paid SMEs spent 80% of their time researching resources to create a single worksheet."
     },
     {
       title: "BLIND_REVIEW_SYNDROME",
@@ -19,7 +19,7 @@ export default function GeetaAI() {
     {
       title: "PRODUCTION_CRASHES",
       icon: <AlertOctagon size={18} />,
-      desc: "Manual data entry led to a 14% syntax crash rate. Missing keys and malformed tags caused the student app to freeze, leading to massive engagement drops."
+      desc: "Manual data entry led to a 24% syntax crash rate. Missing keys and malformed tags caused the student app to freeze, leading to massive engagement drops."
     }
   ];
 
