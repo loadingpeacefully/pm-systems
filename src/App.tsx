@@ -276,7 +276,7 @@ function HomePortfolio() {
             <div>
               <div className="inline-block mb-6 px-3 py-1 border border-[#FF3131] text-[#FF3131] text-[10px] font-bold tracking-widest uppercase">Product Manager & Builder</div>
               <h1 className="text-7xl md:text-[8rem] leading-[0.8] font-black text-white tracking-tighter uppercase mb-6">RAW <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-500 to-zinc-700">IMPACT.</span></h1>
-              <p className="text-xl md:text-2xl text-white/60 max-w-2xl font-medium leading-relaxed">I bridge the gap between engineering and business. I don't just manage backlogs; I prototype, architect, and ship scalable engines.</p>
+              <p className="text-xl md:text-2xl text-white/60 max-w-2xl font-medium leading-relaxed">0→1 product builder architecting systems that scale to millions and deliver measurable business outcomes.</p>
             </div>
             <div className="flex gap-8 md:gap-12">
               {METRICS.map((m, i) => (
