@@ -81,8 +81,8 @@ const PROJECTS: Array<{
   shadow: string;
   icon: React.ComponentType<any>;
 }> = [
-  { id: "P1", title: "Geeta AI", category: "AI Product", color: "text-emerald-400", border: "group-hover:border-emerald-500", shadow: "group-hover:shadow-emerald-500/50", icon: Cpu },
-  { id: "P2", title: "Adhyayan", category: "Platform", color: "text-blue-400", border: "group-hover:border-blue-500", shadow: "group-hover:shadow-blue-500/50", icon: Globe },
+  { id: "P1", title: "Geeta AI", category: "AI Product", color: "text-[#39FF14]", border: "group-hover:border-[#39FF14]", shadow: "roup-hover:shadow-[#39FF14]/50", icon: Cpu },
+  { id: "P2", title: "Adhyayan", category: "Platform", color: "text-[#A855F7]", border: "group-hover:border-[#A855F7]", shadow: "group-hover:shadow-[#A855F7]/50", icon: Globe },
   { id: "P3", title: "Fleet Intel", category: "Data Ops", color: "text-amber-400", border: "group-hover:border-amber-500", shadow: "group-hover:shadow-amber-500/50", icon: Activity },
   { id: "P4", title: "Commerce V2", category: "Growth", color: "text-purple-400", border: "group-hover:border-purple-500", shadow: "group-hover:shadow-purple-500/50", icon: Database },
   { id: "P5", title: "Agent Swarm", category: "Auto", color: "text-red-400", border: "group-hover:border-red-500", shadow: "group-hover:shadow-red-500/50", icon: Zap },
