@@ -1,7 +1,36 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { AlertTriangle, Terminal, XCircle, Activity, EyeOff, AlertOctagon, ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function GeetaAI() {
+  const [currentProblemIndex, setCurrentProblemIndex] = useState(0);
+
+  const problemPoints = [
+    {
+      title: "VELOCITY_BOTTLENECK",
+      icon: <Activity size={18} />,
+      desc: "Manual creation was capped at ~10 worksheets/week. Highly paid SMEs spent 80% of their time wrestling with JSON syntax rather than focusing on pedagogical design."
+    },
+    {
+      title: "BLIND_REVIEW_SYNDROME",
+      icon: <EyeOff size={18} />,
+      desc: "Reviewers approved text in Google Sheets, but the app renders dynamic UI. Critical layout overflows and broken input logic were invisible until production deployment."
+    },
+    {
+      title: "PRODUCTION_CRASHES",
+      icon: <AlertOctagon size={18} />,
+      desc: "Manual data entry led to a 14% syntax crash rate. Missing keys and malformed tags caused the student app to freeze, leading to massive engagement drops."
+    }
+  ];
+
+  const handleNext = () => {
+    setCurrentProblemIndex((prev) => (prev + 1) % problemPoints.length);
+  };
+
+  const handlePrev = () => {
+    setCurrentProblemIndex((prev) => (prev === 0 ? problemPoints.length - 1 : prev - 1));
+  };
+
   useEffect(() => {
     const observerOptions: IntersectionObserverInit = { threshold: 0.1 };
     const observer = new IntersectionObserver((entries) => {
@@ -51,6 +80,30 @@ export default function GeetaAI() {
         .pipeline-arrow::after {
           content: '>>'; position: absolute; right: -25px; top: 50%; transform: translateY(-50%);
           color: rgba(255,255,255,0.1); font-family: 'JetBrains Mono'; font-size: 14px;
+        }
+
+        @keyframes glitch {
+          0% { transform: translate(0) }
+          20% { transform: translate(-2px, 2px) }
+          40% { transform: translate(-2px, -2px) }
+          60% { transform: translate(2px, 2px) }
+          80% { transform: translate(2px, -2px) }
+          100% { transform: translate(0) }
+        }
+        .animate-glitch {
+          animation: glitch 3s infinite;
+          animation-timing-function: steps(2, end);
+        }
+
+        @keyframes glitch-in {
+          0% { opacity: 0; transform: translateX(-10px); clip-path: inset(0 100% 0 0); }
+          20% { opacity: 1; transform: translateX(0); clip-path: inset(0 0 0 0); }
+          40% { clip-path: inset(0 40% 0 0); transform: translateX(2px); }
+          60% { clip-path: inset(0 0 0 0); transform: translateX(0); }
+          100% { opacity: 1; }
+        }
+        .animate-glitch-in {
+          animation: glitch-in 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
         }
       `}</style>
 
@@ -104,44 +157,140 @@ export default function GeetaAI() {
           </div>
         </header>
 
-        {/* SECTION 2: PROBLEM */}
+        {/* SECTION 2: PROBLEM (MANUAL NAVIGATION) */}
         <section className="py-24 md:py-32 px-6 md:px-20 max-w-7xl mx-auto scroll-reveal">
-          <div className="grid lg:grid-cols-2 gap-12 md:gap-20 items-center">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            
+            {/* LEFT COLUMN: The Narrative (Manual Nav) */}
             <div className="space-y-12">
               <div className="space-y-4">
-                <span className="text-crimson font-black uppercase tracking-[0.4em] text-[10px] md:text-xs">// ERROR_LOG: WHY_MANUAL_FAILED</span>
-                <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white uppercase">WHY MANUAL SYSTEMS <br/><span className="text-crimson">BREAK AT SCALE</span></h2>
+                <div className="flex items-center gap-3 text-crimson mb-2">
+                  <AlertTriangle size={16} />
+                  <span className="font-mono text-[10px] tracking-[0.3em] uppercase font-bold">System_Critical_Failure</span>
+                </div>
+                <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-white uppercase leading-[0.9]">
+                  Why Manual <br/>
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-900 animate-pulse">Systems</span> <br/>
+                  <span className="text-crimson animate-glitch inline-block">Break at Scale</span>
+                </h2>
               </div>
               
-              <div className="space-y-6 text-white/60 leading-relaxed italic">
-                <p>SMEs spent 80% of their time on JSON formatting rather than pedagogical design. Manual entry led to frequent syntax crashes and broken student experiences.</p>
-              </div>
+              {/* Manual Nav Container */}
+              <div className="relative min-h-[300px] flex flex-col justify-between">
+                <div className="absolute -left-6 top-0 bottom-0 w-[2px] bg-red-900/30"></div>
+                
+                {/* Content Area */}
+                <div>
+                  {problemPoints.map((point, index) => (
+                    index === currentProblemIndex && (
+                      <div key={index} className="animate-glitch-in space-y-6">
+                        <div className="flex items-center gap-3 text-crimson font-mono font-bold tracking-widest text-sm uppercase">
+                          {point.icon}
+                          <span>DIAGNOSTIC_0{index + 1}: {point.title}</span>
+                        </div>
+                        <p className="text-xl text-white/80 leading-relaxed font-light">
+                          {point.desc}
+                        </p>
+                      </div>
+                    )
+                  ))}
+                </div>
 
-              <div className="bg-red-900/5 border border-red-900/20 p-8 rounded-sm space-y-4">
-                <div className="text-[10px] font-bold text-red-500 uppercase tracking-widest uppercase">The "3x+2" Disparity</div>
-                <p className="text-sm text-white/80 leading-relaxed">
-                  A critical UX failure: "3x+2" looks correct in a Google Sheet cell, but reviewers couldn't verify if the input box accepted spaces or if long questions pushed the UI off-screen on mobile devices.
-                </p>
+                {/* Navigation Controls */}
+                <div className="flex items-center justify-between mt-12 border-t border-red-900/20 pt-6">
+                  <div className="flex items-center gap-2">
+                    {/* Progress Dots */}
+                    {problemPoints.map((_, i) => (
+                      <div 
+                        key={i} 
+                        className={`h-1 transition-all duration-300 ${i === currentProblemIndex ? "w-8 bg-crimson" : "w-2 bg-red-900/30"}`}
+                      />
+                    ))}
+                  </div>
+
+                  <div className="flex items-center gap-4">
+                    <button 
+                      onClick={handlePrev}
+                      className="p-3 border border-red-900/30 text-crimson hover:bg-crimson hover:text-black transition-all group"
+                    >
+                      <ChevronLeft size={16} />
+                    </button>
+                    <span className="font-mono text-xs text-crimson tracking-widest">
+                      0{currentProblemIndex + 1} / 0{problemPoints.length}
+                    </span>
+                    <button 
+                      onClick={handleNext}
+                      className="p-3 border border-red-900/30 text-crimson hover:bg-crimson hover:text-black transition-all group"
+                    >
+                      <ChevronRight size={16} />
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div className="terminal-block p-6 md:p-10 rounded-sm mono text-xs leading-6 overflow-hidden">
-                <div className="flex gap-2 mb-6 opacity-30">
-                    <div className="w-2 h-2 rounded-full bg-white"></div>
-                    <div className="w-2 h-2 rounded-full bg-white"></div>
-                    <div className="w-2 h-2 rounded-full bg-white"></div>
+            {/* RIGHT COLUMN: The Evidence (Terminal) */}
+            <div className="relative mt-8 lg:mt-0">
+              {/* Decorative 'Connectors' */}
+              <div className="absolute -left-8 top-10 w-8 h-[1px] bg-red-900/50 hidden lg:block"></div>
+              <div className="absolute -left-8 top-10 w-[1px] h-20 bg-red-900/50 hidden lg:block"></div>
+
+              <div className="terminal-block bg-[#080808] border border-white/10 rounded-md overflow-hidden shadow-2xl relative">
+                {/* Mac-style Window Header */}
+                <div className="bg-white/5 px-4 py-3 flex items-center justify-between border-b border-white/5">
+                  <div className="flex gap-2 opacity-50">
+                    <div className="w-3 h-3 rounded-full bg-red-500/50"></div>
+                    <div className="w-3 h-3 rounded-full bg-yellow-500/50"></div>
+                    <div className="w-3 h-3 rounded-full bg-green-500/50"></div>
+                  </div>
+                  <div className="font-mono text-[10px] text-white/30 uppercase tracking-widest">ERROR_LOG_DUMP.json</div>
                 </div>
-                <div className="text-white/20 mb-4 tracking-widest uppercase">System_Failure_Simulation</div>
-                <div className="space-y-2 text-[11px]">
-                    <p><span className="text-white/40">CONTENT:</span> "If 3x + 2 = 11, find x"</p>
-                    <p><span className="text-white/40">SHEET_VIEW:</span> [RENDER_TEXT_SUCCESS]</p>
-                    <p className="text-crimson font-bold"><span className="text-white/40 uppercase">APP_VIEW:</span> [RENDER_COMPONENT_OVERFLOW]</p>
-                    <p className="text-crimson font-bold"><span className="text-white/40 uppercase">USER_ENGAGEMENT:</span> [DROPPED]</p>
+
+                {/* Terminal Content */}
+                <div className="p-8 font-mono text-xs leading-loose">
+                  <div className="flex gap-4 border-b border-white/5 pb-4 mb-4">
+                    <div className="text-white/30">01</div>
+                    <div>
+                      <span className="text-blue-400">INPUT_SOURCE:</span> <span className="text-white">"If 3x + 2 = 11, find x"</span>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-4 border-b border-white/5 pb-4 mb-4 opacity-50">
+                    <div className="text-white/30">02</div>
+                    <div>
+                      <span className="text-green-400">SHEET_PARSER:</span> [VALID_STRING]
+                    </div>
+                  </div>
+
+                  <div className="flex gap-4 bg-red-500/10 -mx-8 px-8 py-2 border-l-2 border-red-500">
+                    <div className="text-red-500/50">03</div>
+                    <div className="space-y-1">
+                      <div className="text-crimson font-bold flex items-center gap-2">
+                        <XCircle size={12} /> CRITICAL_RENDER_FAILURE
+                      </div>
+                      <div className="text-red-300/60 pl-5">
+                        Error: Component overflow at line 14.<br/>
+                        Mobile viewport width exceeded.<br/>
+                        &gt; User drop-off detected (92%)
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="mt-8 pt-4 border-t border-white/10 text-white/40 italic flex items-center gap-2">
+                    <Terminal size={12} />
+                    <span>Awaiting patch...</span>
+                    <span className="w-2 h-4 bg-neon-green animate-pulse inline-block ml-1"></span>
+                  </div>
                 </div>
-                <div className="mt-8 pt-6 border-t border-white/5 text-neon italic">
-                    Solution: WYSIWYG Review Interface (Phase 3).
-                </div>
+              </div>
+              
+              {/* Floating Badge */}
+              <div className="absolute -bottom-6 -right-6 bg-black border border-neon-green px-6 py-4 shadow-[0_0_30px_rgba(57,255,20,0.15)]">
+                <div className="text-[10px] text-white/40 uppercase tracking-widest mb-1">Proposed Solution</div>
+                <div className="text-neon font-bold font-mono">WYSIWYG INTERFACE &gt;&gt;</div>
+              </div>
             </div>
+
           </div>
         </section>
 
