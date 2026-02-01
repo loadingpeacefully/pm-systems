@@ -34,60 +34,81 @@ import {
   Layers, 
   Aperture, 
   MessageSquare, 
-  Trophy 
+  Trophy,
+  Brain,
+  Rocket,
+  ChevronDown,
+  ChevronUp,
+  ArrowUp
 } from 'lucide-react';
 
-// Import Registry
+// Import Registry for Project Pages
 import { PROJECT_PAGE_MAP } from "./pages/projects/registry";
+
+// --- CONFIGURATION ---
+
+const CONFIG = {
+  colors: {
+    neon: '#39FF14',
+    bg: '#050505',
+    panel: '#0a0a0a',
+    text: '#d1d1d1',
+    border: 'rgba(255, 255, 255, 0.1)'
+  }
+};
 
 // --- DATA: THE ARCHIVE ---
 
-type ProjectId =
-  | "P1" | "P2" | "P3" | "P4" | "P5"
-  | "P6" | "P7" | "P8" | "P9" | "P10"
-  | "P11" | "P12" | "P13"; // Added P13 for Digital KYC
+type ProjectId = "P1" | "P2" | "P3" | "P4" | "P5" | "P6" | "P7" | "P8" | "P9" | "P10" | "P11" | "P12" | "P13" | "P14";
 
 const PROJECTS = [
-  // ✅ P1: GEETA AI (PRESERVED: Neon Green)
+  // BRIGHTCHAMPS
   { 
     id: "P1", 
     title: "GEETA_AI", 
-    type: "AI_PIPELINE", 
+    type: "CONTENT_OPS", 
     icon: Cpu, 
-    desc: "Autonomous content factory scaling worksheet production.", 
-    color: "text-[#39FF14]", // Neon Green
+    desc: "Autonomous content factory scaling worksheet production 15x via Regex middleware & WYSIWYG review tools.", 
+    color: "text-[#39FF14]", // Neon Green Override
     border: "border-[#39FF14]", 
-    stack: "Python, OpenAI, RAG", 
-    metrics: ["15x Scale", "90% Cost Redux"] 
+    stack: "Python, Regex, GAS", 
+    metrics: ["10->150/wk Scale", "90% Cost Redux"] 
   },
-  
-  // ✅ P2: ADHYAYAN (PRESERVED: Purple)
+  { 
+    id: "P14", // ✅ BUG FIXED: Changed from P2 to P14
+    title: "UNIFIED_CORE", 
+    type: "INFRA", 
+    icon: Server, 
+    desc: "Merged 3 companies (BrightChamps, FinLit, Schola) into one MySQL/Redis architecture.", 
+    color: "text-blue-400", 
+    border: "border-blue-500", 
+    stack: "MySQL, Redis, React", 
+    metrics: ["100% Migration", "Single SSO"] 
+  },
   { 
     id: "P2", 
-    title: "ADHYAYAN", 
-    type: "GAMIFIED_LMS", 
+    title: "ADHYAYAN_OS", 
+    type: "GAMIFICATION", 
     icon: Globe, 
-    desc: "Unified Global EdTech Operating System for 30+ countries.", 
-    color: "text-[#A855F7]", // Purple
+    desc: "JSON-driven 'Player' engine transforming static slides into 40+ game types.", 
+    color: "text-[#A855F7]", // Purple Override
     border: "border-[#A855F7]", 
-    stack: "React, Node.js, AWS", 
-    metrics: ["30+ Countries", "Unified Stack"] 
+    stack: "JSON Engine, React", 
+    metrics: ["90% Quiz Compl.", "Zero Idle Time"] 
   },
-
-  // NEW PROJECTS (From your list)
-  { id: "P5", title: "AGENT_SWARM", type: "AUTOMATION", icon: Zap, desc: "LLM agents handling Tier-1 support & ops triage.", color: "text-red-400", border: "border-red-500", stack: "LangChain, Vector DB", metrics: ["65% Deflection", "Zero Touch"] },
-  { id: "P3", title: "FLEET_INTEL", type: "DATA_OPS", icon: Activity, desc: "High-frequency sensor ingestion for logistics fleets.", color: "text-amber-400", border: "border-amber-500", stack: "Kafka, Go, TimescaleDB", metrics: ["1M Events/Sec", "Real-Time"] },
-  { id: "P13", title: "DIGITAL_KYC", type: "ONBOARDING", icon: Scan, desc: "Mobile-first driver verification reducing onboarding to 10m.", color: "text-indigo-400", border: "border-indigo-500", stack: "React Native, OpenCV", metrics: ["10m Onboarding", "100% Digital"] },
-  { id: "P9", title: "DESIGN_OPS", type: "WORKFLOW", icon: Command, desc: "Parametric scripts automating architectural layouts.", color: "text-purple-400", border: "border-purple-500", stack: "Rhino, Grasshopper, Python", metrics: ["95% Time Saved", "Automated"] },
-  { id: "P7", title: "URBAN_LENS", type: "MEDIA", icon: Box, desc: "WebGL visualization of urban density data.", color: "text-cyan-400", border: "border-cyan-500", stack: "Three.js, Mapbox", metrics: ["Data Viz", "Interactive"] },
-  { id: "P4", title: "COMMERCE_V2", type: "GROWTH", icon: Database, desc: "Algorithmic pricing engine boosting revenue by 18%.", color: "text-pink-400", border: "border-pink-500", stack: "Next.js, Stripe, Redis", metrics: ["+18% Rev", "Dynamic Pricing"] },
+  { id: "P4", title: "NANO_SKILLS", type: "D2C_GROWTH", icon: Rocket, desc: "Marketplace for micro-courses driving upsell via virtual currency ('Diamonds').", color: "text-pink-400", border: "border-pink-500", stack: "React, Payment Gtwy", metrics: ["3k+ Enrollments", "5% Margin Up"] },
+  { id: "P8", title: "MATH_0_TO_1", type: "EDTECH", icon: Brain, desc: "Proprietary Math vertical aligned with US Common Core standards.", color: "text-purple-400", border: "border-purple-500", stack: "Curriculum Arch", metrics: ["60 Lessons/Wk", "Global Rollout"] },
+  { id: "P6", title: "TRIAL_BUDDY", type: "AI_SALES", icon: MessageSquare, desc: "RAG-based sales bot handling pre-sales queries on WhatsApp/Web.", color: "text-emerald-400", border: "border-emerald-500", stack: "RAG, WhatsApp API", metrics: ["Lead Recovery", "24/7 Context"] },
   
-  // Lab Projects
-  { id: "P6", title: "SYNTH_LAB", type: "AUDIO", icon: Layers, desc: "WebAudio API experiments.", color: "text-pink-400", border: "border-pink-500", stack: "WebAudio, React", metrics: ["Audio DSP", "Experimental"] },
-  { id: "P8", title: "ZERO_LAT", type: "INFRA", icon: Terminal, desc: "Edge networking R&D.", color: "text-zinc-400", border: "border-zinc-500", stack: "Rust, WASM", metrics: ["<10ms Latency", "Edge Compute"] },
-  { id: "P10", title: "HEALTH_UI", type: "VIS", icon: HeartPulse, desc: "Health data viz.", color: "text-teal-400", border: "border-teal-500", stack: "D3.js", metrics: ["Real-time", "Data Viz"] },
-  { id: "P11", title: "CRYPTO_V1", type: "WEB3", icon: Aperture, desc: "Chain analytics.", color: "text-yellow-400", border: "border-yellow-500", stack: "Solidity", metrics: ["On-Chain", "Analytics"] },
-  { id: "P12", title: "PODCAST", type: "CONTENT", icon: Mic, desc: "Tech talks.", color: "text-orange-400", border: "border-orange-500", stack: "RSS", metrics: ["Content", "Audio"] }
+  // WHEELSEYE
+  { id: "P3", title: "FLEET_MKT", type: "MARKETPLACE", icon: Activity, desc: "Algorithmic truck allocation reducing booking time from 8hrs to 5mins.", color: "text-amber-400", border: "border-amber-500", stack: "Kafka, Go, Postgres", metrics: ["8hr -> 5min", "Real-Time Alloc"] },
+  { id: "P13", title: "DIGITAL_KYC", type: "ONBOARDING", icon: Scan, desc: "Mobile-first driver verification reducing onboarding to 10m.", color: "text-indigo-400", border: "border-indigo-500", stack: "React Native, OpenCV", metrics: ["1 Week -> 10m", "100% Digital"] },
+  { id: "P12", title: "PRICE_VIS", type: "UX_LAB", icon: Database, desc: "Real-time transparent quoting UI to reduce consignor anxiety.", color: "text-orange-400", border: "border-orange-500", stack: "A/B Testing", metrics: ["Reduced Churn", "Trust Signal"] },
+  
+  // ARTH
+  { id: "P7", title: "BUILDWIT", type: "B2B_SAAS", icon: Box, desc: "Web-based feasibility solver for architectural proposals.", color: "text-cyan-400", border: "border-cyan-500", stack: "WebGL, JS", metrics: ["10 Paying Clients", "MVP Launch"] },
+  { id: "P9", title: "DESIGN_AUTO", type: "WORKFLOW", icon: Command, desc: "Parametric scripts automating 95% of manual design iterations.", color: "text-purple-400", border: "border-purple-500", stack: "Grasshopper, C#", metrics: ["95% Time Saved", "73L Saved/Mo"] },
+  { id: "P11", title: "GMR_SIM", type: "DIGITAL_TWIN", icon: Layers, desc: "4D construction simulations for Airport terminals.", color: "text-teal-400", border: "border-teal-500", stack: "VR, 4D Sim", metrics: ["Sequencing", "Stakeholder Viz"] },
 ];
 
 const MISSIONS = [
@@ -95,59 +116,61 @@ const MISSIONS = [
     id: "M03",
     company: "BRIGHTCHAMPS",
     role: "SR. PRODUCT MANAGER",
-    period: "2023 — PRESENT",
+    period: "02/2023 — PRESENT",
     status: "ACTIVE_OPERATION",
     color: "text-[#39FF14]",
     accent: "bg-[#39FF14]",
     border: "border-[#39FF14]",
     bg: "bg-[#39FF14]/5",
-    stack: ["React", "Python/RAG", "SQL", "Redis"],
-    linkedProjects: ["P1", "P2", "P5"] 
+    brief: "Leading platform unification and AI automation for a global EdTech serving 30+ countries. Scaling content production 15x and driving monetization via new D2C verticals.",
+    metrics: ["30+ Countries", "15x Scale", "100% Migration"],
+    stack: ["React", "Python/RAG", "MySQL", "Redis"],
+    linkedProjects: ["P1", "P14", "P2", "P4", "P8", "P6"] // Updated P14 here too
   },
   {
     id: "M02",
     company: "WHEELSEYE",
     role: "PRODUCT MANAGER",
-    period: "2022 — 2023",
+    period: "03/2022 — 01/2023",
     status: "MISSION_COMPLETE",
     color: "text-blue-400",
     accent: "bg-blue-400",
     border: "border-blue-400",
     bg: "bg-blue-400/5",
-    brief: "Transforming manual logistics into a real-time marketplace. Reduced booking times from 8 hours to 5 minutes via algorithmic allocation.",
-    metrics: ["1M Events/Sec", "Real-Time Alloc", "Digital KYC"],
-    stack: ["Kafka", "Golang", "Postgres", "Google Maps API"],
-    linkedProjects: ["P3", "P13"]
+    brief: "Transformed manual logistics brokerage into an algorithmic marketplace. Solved the 'Matching Problem' to cut truck confirmation times by 99%.",
+    metrics: ["8hr->5min Speed", "Digital Bilti", "KYC Auto"],
+    stack: ["Kafka", "Golang", "Postgres", "Google Maps"],
+    linkedProjects: ["P3", "P13", "P12"]
   },
   {
     id: "M01",
     company: "ARTH DESIGN",
     role: "FOUNDER / PM",
-    period: "2020 — 2022",
+    period: "04/2019 — 02/2022",
     status: "FOUNDATION_LAID",
     color: "text-purple-400",
     accent: "bg-purple-400",
     border: "border-purple-400",
     bg: "bg-purple-400/5",
-    brief: "Building 'BuildwIT', a B2B PaaS for automated architectural proposals. Slashed generation time by 95% using computational design scripts.",
-    metrics: ["95% Time Saved", "B2B SaaS", "Parametric Design"],
+    brief: "Built 'BuildwIT', a B2B PaaS for automated architectural proposals. Pioneered computational design workflows saving 1000+ man-hours/month.",
+    metrics: ["10+ B2B Clients", "95% Eff. Gain", "Tata Projects"],
     stack: ["Rhino/Grasshopper", "Python", "Three.js", "C#"],
-    linkedProjects: ["P9", "P7"]
+    linkedProjects: ["P7", "P9", "P11"]
   }
 ];
 
 const FACTS_STREAM_1 = [
-  { text: "Balashree Medalist", sub: "Presidential Honor", icon: Award, color: "text-yellow-400" },
-  { text: "10+ Countries", sub: "Global Explorer", icon: Globe, color: "text-cyan-400" },
+  { text: "Balashree Medalist", sub: "Presidential Honor (Arts)", icon: Award, color: "text-yellow-400" },
+  { text: "10+ Countries", sub: "Global Design Stints", icon: Globe, color: "text-cyan-400" },
   { text: "Ironman 70.3", sub: "Training In Progress", icon: HeartPulse, color: "text-red-400" },
-  { text: "Designer Since 2006", sub: "Fine Arts Scholar", icon: Palette, color: "text-purple-400" },
+  { text: "Manhattan Run", sub: "13 Miles / 6 Hours", icon: Footprints, color: "text-orange-400" },
 ];
 
 const FACTS_STREAM_2 = [
-  { text: "Manhattan Run", sub: "13 Miles / 6 Hours", icon: Footprints, color: "text-orange-400" },
-  { text: "Design Intern @ NYC", sub: "Milestone Arch", icon: Briefcase, color: "text-blue-400" },
-  { text: "Copenhagen Stint", sub: "COBE Architects", icon: MapPin, color: "text-emerald-400" },
-  { text: "Mexico City Stint", sub: "Serrano Monjaraz", icon: MapPin, color: "text-pink-400" },
+  { text: "Intern @ COBE", sub: "Copenhagen, Denmark", icon: MapPin, color: "text-emerald-400" },
+  { text: "Intern @ Milestone", sub: "New York City", icon: MapPin, color: "text-blue-400" },
+  { text: "Intern @ Serrano", sub: "Mexico City", icon: MapPin, color: "text-pink-400" },
+  { text: "Intern @ ALA", sub: "Helsinki, Finland", icon: MapPin, color: "text-indigo-400" },
 ];
 
 const AWARDS = [
@@ -162,10 +185,28 @@ const AWARDS = [
 ];
 
 const SKILLS = [
-  "Product Strategy", "System Architecture", "React/Next.js", "Python/AI", "SQL/Data", "Figma/UX", "GTM Strategy"
+  "Product Strategy", "System Architecture", "0 -> 1 Scaling", "A/B Experimentation", "SQL/Analytics", "Gamification", "AI/LLM Ops"
 ];
 
 // --- COMPONENTS ---
+
+// ✅ Back To Top Component
+const BackToTop = () => {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const toggleVisibility = () => setVisible(window.scrollY > 500);
+    window.addEventListener("scroll", toggleVisibility);
+    return () => window.removeEventListener("scroll", toggleVisibility);
+  }, []);
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+  
+  if (!visible) return null;
+  return (
+    <button onClick={scrollToTop} className="fixed bottom-8 right-8 z-50 p-3 bg-black border border-white/20 text-white hover:border-[#39FF14] hover:text-[#39FF14] transition-all shadow-lg group">
+      <ArrowUp size={20} className="group-hover:-translate-y-1 transition-transform" />
+    </button>
+  );
+};
 
 const GlitchText = ({ text }: { text: string }) => (
   <div className="relative inline-block group">
@@ -176,15 +217,11 @@ const GlitchText = ({ text }: { text: string }) => (
 );
 
 const ProjectTile = ({ project, compact = false, onClick, isSelected }: any) => {
-  // Safe color parsing for hover effect
   const borderColor = project.border || 'border-white';
   const textColor = project.color || 'text-white';
   
-  // Dynamic linking: if onClick is provided (for missions), it acts as a button. 
-  // If not (main grid), it acts as a Link.
   const Content = (
     <>
-      {/* Hover Accent Line */}
       <div className={`absolute top-0 left-0 w-full h-1 bg-transparent transition-colors duration-300 ${textColor.replace('text-', 'bg-')}`} />
       
       <div className={`absolute inset-0 flex flex-col items-center justify-center text-center z-10 ${compact ? 'p-3' : 'p-6'}`}>
@@ -200,7 +237,6 @@ const ProjectTile = ({ project, compact = false, onClick, isSelected }: any) => 
         </div>
       </div>
 
-      {/* Selected Indicator Corner */}
       {isSelected && (
         <>
           <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-white" />
@@ -214,22 +250,14 @@ const ProjectTile = ({ project, compact = false, onClick, isSelected }: any) => 
 
   const containerClasses = `group relative bg-[#0a0a0a] border hover:border-white/30 transition-all duration-300 overflow-hidden cursor-pointer 
     ${compact ? 'aspect-[4/3]' : 'aspect-square'}
-    ${isSelected ? `${borderColor} shadow-[0_0_15px_rgba(255,255,255,0.1)]` : 'border-white/10'}
+    ${isSelected ? `${borderColor} shadow-[0_0_15px_rgba(var(--tw-shadow-color),0.3)]` : 'border-white/10'}
   `;
 
   if (onClick) {
-    return (
-      <div onClick={onClick} className={containerClasses}>
-        {Content}
-      </div>
-    );
+    return <div onClick={onClick} className={containerClasses}>{Content}</div>;
   }
 
-  return (
-    <Link to={`/p/${project.id}`} className={containerClasses}>
-      {Content}
-    </Link>
-  );
+  return <Link to={`/p/${project.id}`} className={containerClasses}>{Content}</Link>;
 };
 
 const ProjectIntelPanel = ({ project }: any) => {
@@ -238,7 +266,6 @@ const ProjectIntelPanel = ({ project }: any) => {
   return (
     <div className="mt-4 border-t border-white/10 pt-4 animate-in fade-in slide-in-from-top-2 duration-300">
       <div className="bg-[#0a0a0a] border border-white/10 p-5 rounded-sm relative overflow-hidden">
-        {/* Background Grid */}
         <div className="absolute inset-0 opacity-10 pointer-events-none" 
              style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '20px 20px' }} 
         />
@@ -284,15 +311,17 @@ const ProjectIntelPanel = ({ project }: any) => {
 const MissionCard = ({ mission }: any) => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeProject, setActiveProject] = useState<any>(null);
+  const [showAllProjects, setShowAllProjects] = useState(false);
   
   const linkedProjects = PROJECTS.filter(p => mission.linkedProjects.includes(p.id));
+  const INITIAL_LIMIT = 8;
+  const hasMoreProjects = linkedProjects.length > INITIAL_LIMIT;
+  const visibleProjects = showAllProjects ? linkedProjects : linkedProjects.slice(0, INITIAL_LIMIT);
 
   return (
     <div className="group relative border-l-2 border-white/10 pl-8 pb-16 last:pb-0">
-      {/* Timeline Node */}
       <div className={`absolute -left-[9px] top-0 w-4 h-4 rounded-full border-2 bg-[#050505] transition-colors duration-300 ${isOpen ? mission.border + ' ' + mission.bg : 'border-zinc-700 group-hover:border-white'}`} />
       
-      {/* Header */}
       <div 
         className="flex flex-col md:flex-row md:items-center justify-between cursor-pointer mb-6"
         onClick={() => setIsOpen(!isOpen)}
@@ -323,12 +352,10 @@ const MissionCard = ({ mission }: any) => {
         </div>
       </div>
 
-      {/* Expanded Content */}
-      <div className={`overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? 'max-h-[800px] opacity-100' : 'max-h-0 opacity-50'}`}>
+      <div className={`overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? 'max-h-[1200px] opacity-100' : 'max-h-0 opacity-50'}`}>
         <div className="bg-[#0a0a0a] border border-white/10 p-6 md:p-8 rounded-sm mb-6">
           <div className="grid grid-cols-1 gap-8">
             
-            {/* Top: Brief */}
             {mission.brief && (
               <div className="border-b border-white/10 pb-6">
                 <div className="text-[10px] text-zinc-500 font-mono uppercase tracking-widest mb-2">Mission Brief</div>
@@ -338,7 +365,6 @@ const MissionCard = ({ mission }: any) => {
               </div>
             )}
 
-            {/* Bottom: Project Grid */}
             <div>
               <div className="flex items-center justify-between mb-4">
                 <div className="text-[10px] text-zinc-500 font-mono uppercase tracking-widest">
@@ -350,34 +376,51 @@ const MissionCard = ({ mission }: any) => {
               </div>
               
               {linkedProjects.length > 0 ? (
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                  {linkedProjects.map(p => (
-                    <div 
-                      key={p.id}
-                      // Special handler for tiles INSIDE missions (expand detail, don't nav)
-                      onClick={(e) => {
-                        e.preventDefault(); 
-                        e.stopPropagation();
-                        setActiveProject(activeProject?.id === p.id ? null : p);
-                      }}
-                    >
-                      <ProjectTile 
-                        project={p} 
-                        compact={true} 
-                        isSelected={activeProject?.id === p.id}
-                        // We pass onClick to the tile so it renders as a div, not a Link
-                        onClick={() => {}}
-                      />
+                <>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+                    {visibleProjects.map((p: any) => (
+                      <div 
+                        key={p.id}
+                        onClick={(e) => {
+                          e.preventDefault(); 
+                          e.stopPropagation();
+                          setActiveProject(activeProject?.id === p.id ? null : p);
+                        }}
+                      >
+                        <ProjectTile 
+                          project={p} 
+                          compact={true} 
+                          isSelected={activeProject?.id === p.id}
+                          onClick={() => {}}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                  
+                  {hasMoreProjects && (
+                    <div className="flex justify-center mt-2">
+                      <button 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setShowAllProjects(!showAllProjects);
+                        }}
+                        className="flex items-center gap-2 px-4 py-2 border border-white/10 bg-white/[0.02] hover:bg-white/[0.05] text-[10px] font-mono font-bold text-zinc-400 hover:text-white uppercase tracking-widest transition-all rounded-full"
+                      >
+                        {showAllProjects ? (
+                          <>Collapse <ChevronUp size={12} /></>
+                        ) : (
+                          <>View All Projects <ChevronDown size={12} /></>
+                        )}
+                      </button>
                     </div>
-                  ))}
-                </div>
+                  )}
+                </>
               ) : (
                 <div className="h-20 flex items-center justify-center border border-white/5 border-dashed rounded bg-white/[0.01]">
                   <span className="text-[10px] font-mono text-zinc-700 uppercase">No Public Modules</span>
                 </div>
               )}
 
-              {/* Project Detail Expansion */}
               <ProjectIntelPanel project={activeProject} />
             </div>
 
@@ -419,6 +462,9 @@ function ScrollToTop() {
 
 function HomePortfolio() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [showAllShips, setShowAllShips] = useState(false);
+  const BUILD_LIMIT = 8;
+  const visibleProjects = showAllShips ? PROJECTS : PROJECTS.slice(0, BUILD_LIMIT);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -465,6 +511,9 @@ function HomePortfolio() {
       {/* BACKGROUND */}
       <div className="fixed inset-0 grid-bg pointer-events-none z-0" />
       <div className="scanline" />
+      
+      {/* ✅ BACK TO TOP BUTTON */}
+      <BackToTop />
 
       {/* HEADER */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-[#050505]/90 backdrop-blur-md border-b border-white/5">
@@ -526,7 +575,7 @@ function HomePortfolio() {
           </div>
 
           <div className="max-w-5xl mx-auto">
-            {MISSIONS.map((mission) => (
+            {MISSIONS.map((mission: any) => (
               <MissionCard key={mission.id} mission={mission} />
             ))}
           </div>
@@ -539,16 +588,28 @@ function HomePortfolio() {
               <Layout size={32} className="text-[#39FF14]" />
               The Build Grid
             </h2>
-            <button className="text-xs font-bold text-white border-b border-[#39FF14] pb-1 uppercase tracking-widest hover:opacity-80">
-              View All 42+ Ships
-            </button>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/10 border border-white/10">
-            {PROJECTS.map((project) => (
+            {visibleProjects.map((project) => (
               <ProjectTile key={project.id} project={project} />
             ))}
           </div>
+          
+          {PROJECTS.length > BUILD_LIMIT && (
+             <div className="flex justify-center mt-8">
+                <button 
+                  onClick={() => setShowAllShips(!showAllShips)}
+                  className="flex items-center gap-2 text-xs font-bold text-white border border-[#39FF14] px-6 py-3 uppercase tracking-widest hover:bg-[#39FF14] hover:text-black transition-all"
+                >
+                  {showAllShips ? (
+                    <>Collapse System <ChevronUp size={14} /></>
+                  ) : (
+                    <>View All {PROJECTS.length} Ships <ChevronDown size={14} /></>
+                  )}
+                </button>
+             </div>
+          )}
         </section>
 
         {/* 4. BIO-METRICS (PERSONAL) */}
@@ -655,7 +716,7 @@ function HomePortfolio() {
 
 function ProjectPage() {
   const { id } = useParams();
-  const pid = id as string;
+  const pid = id as ProjectId | undefined;
 
   // Retrieve component from Registry
   const Component = pid ? (PROJECT_PAGE_MAP as any)[pid] : null;

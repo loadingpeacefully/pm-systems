@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { ArrowUp } from "lucide-react";
 
 export default function Adhyayan() {
   useEffect(() => {
@@ -15,6 +16,15 @@ export default function Adhyayan() {
 
     return () => observer.disconnect();
   }, []);
+
+  // Back to Top Logic
+  const [showTopBtn, setShowTopBtn] = useState(false);
+  useEffect(() => {
+    const toggleVisibility = () => setShowTopBtn(window.scrollY > 500);
+    window.addEventListener("scroll", toggleVisibility);
+    return () => window.removeEventListener("scroll", toggleVisibility);
+  }, []);
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
     <div className="bg-[#050505] text-[#d1d1d1] font-sans overflow-x-hidden selection:bg-[#A855F7] selection:text-white">
@@ -133,18 +143,36 @@ export default function Adhyayan() {
         }
       `}</style>
 
+      {/* Back To Top Button */}
+      {showTopBtn && (
+        <button 
+          onClick={scrollToTop} 
+          className="fixed bottom-8 right-8 z-50 p-3 bg-black border border-white/20 text-white hover:border-[#A855F7] hover:text-[#A855F7] transition-all shadow-lg group"
+        >
+          <ArrowUp size={20} className="group-hover:-translate-y-1 transition-transform" />
+        </button>
+      )}
+
       <div className="grid-overlay min-h-screen">
         {/* SECTION 1: SYSTEM DIRECTIVE (HERO) */}
         <header className="min-h-screen flex flex-col px-6 md:px-20 relative overflow-hidden bg-[#050505] border-b border-white/5">
             <div className="scanline"></div>
 
-            {/* TOP NAV: Simple Return Link (UPDATED) */}
-            <div className="w-full pt-10 flex items-start justify-start z-20">
+            {/* TOP NAV: Simple Return Link + Next Project */}
+            <div className="w-full pt-10 flex items-center justify-between z-20">
                 <Link
                   to="/"
                   className="text-[10px] font-mono uppercase tracking-[0.4em] text-[#A855F7] hover:opacity-80 transition-opacity"
                 >
                   &lt;&lt; RETURN_TO_DASHBOARD
+                </Link>
+
+                {/* NEXT PROJECT: NANO SKILLS (PINK) */}
+                <Link 
+                  to="/p/P4" 
+                  className="text-[10px] font-mono uppercase tracking-[0.2em] text-pink-400 hover:opacity-80 transition-opacity border-b border-pink-400/30 pb-1"
+                >
+                  NEXT_INTEL: NANO_SKILLS &gt;&gt;
                 </Link>
             </div>
             
@@ -237,6 +265,9 @@ export default function Adhyayan() {
                         </div>
                     </div>
 
+                    
+
+                    
                 </div>
 
                 {/* RIGHT: SYSTEM STRESS ANALYSIS TERMINAL (5 COLS) */}
@@ -298,30 +329,54 @@ export default function Adhyayan() {
         </section>
 
         {/* SECTION 3: THE PLAYER ARCHITECTURE */}
-        <section className="py-24 md:py-32 bg-white/[0.02] border-y border-white/5 px-6 md:px-20 scroll-reveal">
-            <div className="max-w-7xl mx-auto space-y-16">
-                <div className="text-center space-y-4">
-                    <span className="text-purple font-black uppercase tracking-[0.4em] text-[10px] md:text-xs">// SYSTEM ARCHITECTURE: THE PLAYER</span>
-                    <h2 className="text-3xl md:text-4xl font-bold text-white uppercase tracking-tighter">MODULAR <span className="text-purple">POLYMOPRHIC ENGINE</span></h2>
-                </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 md:gap-0">
-                    <div className="p-8 border border-white/10 bg-black rounded-sm space-y-4 relative group hover:border-purple-500/50 transition-colors">
-                        <div className="text-purple font-bold text-[10px] tracking-widest uppercase">The "Task" Object</div>
-                        <h3 className="text-xl font-bold text-white uppercase mono">Polymorphism</h3>
-                        <p className="text-xs text-white/40 leading-relaxed italic uppercase">System reads <code>templateType</code> and mounts corresponding game engines (Card-Flips, Crosswords) instantly.</p>
-                    </div>
-                    <div className="p-8 border border-white/10 bg-black rounded-sm space-y-4 group hover:border-purple-500/50 transition-colors">
-                        <div className="text-purple font-bold text-[10px] tracking-widest uppercase">Logic-as-Data</div>
-                        <h3 className="text-xl font-bold text-white uppercase mono">JSON Flags</h3>
-                        <p className="text-xs text-white/40 leading-relaxed italic uppercase">Mechanics like <code>selectUntilCorrect</code> switch tasks from "Test Mode" to "Mastery Loops" via JSON flags.</p>
-                    </div>
-                    <div className="p-8 border border-white/10 bg-black rounded-sm space-y-4 group hover:border-purple-500/50 transition-colors">
-                        <div className="text-purple font-bold text-[10px] tracking-widest uppercase">Global Parity</div>
-                        <h3 className="text-xl font-bold text-white uppercase mono">Lottie Runtimes</h3>
-                        <p className="text-xs text-white/40 leading-relaxed italic uppercase">Prioritized JSON animations over MP4, enabling gamification in low-bandwidth regions at 1/10th the cost.</p>
-                    </div>
-                </div>
+<section className="py-24 md:py-32 bg-white/[0.02] border-y border-white/5 px-6 md:px-20 scroll-reveal">
+
+<div className="max-w-7xl mx-auto space-y-16">
+
+<div className="text-center space-y-4">
+
+<span className="text-purple font-black uppercase tracking-[0.4em] text-[10px] md:text-xs">// SYSTEM ARCHITECTURE: THE PLAYER</span>
+
+<h2 className="text-3xl md:text-4xl font-bold text-white uppercase tracking-tighter">MODULAR <span className="text-purple">POLYMOPRHIC ENGINE</span></h2>
+
+</div>
+
+
+
+<div className="grid grid-cols-1 md:grid-cols-3 md:gap-0">
+
+<div className="p-8 border border-white/10 bg-black rounded-sm space-y-4 relative group hover:border-purple-500/50 transition-colors">
+
+<div className="text-purple font-bold text-[10px] tracking-widest uppercase">The "Task" Object</div>
+
+<h3 className="text-xl font-bold text-white uppercase mono">Polymorphism</h3>
+
+<p className="text-xs text-white/40 leading-relaxed italic uppercase">System reads <code>templateType</code> and mounts corresponding game engines (Card-Flips, Crosswords) instantly.</p>
+
+</div>
+
+<div className="p-8 border border-white/10 bg-black rounded-sm space-y-4 group hover:border-purple-500/50 transition-colors">
+
+<div className="text-purple font-bold text-[10px] tracking-widest uppercase">Logic-as-Data</div>
+
+<h3 className="text-xl font-bold text-white uppercase mono">JSON Flags</h3>
+
+<p className="text-xs text-white/40 leading-relaxed italic uppercase">Mechanics like <code>selectUntilCorrect</code> switch tasks from "Test Mode" to "Mastery Loops" via JSON flags.</p>
+
+</div>
+
+<div className="p-8 border border-white/10 bg-black rounded-sm space-y-4 group hover:border-purple-500/50 transition-colors">
+
+<div className="text-purple font-bold text-[10px] tracking-widest uppercase">Global Parity</div>
+
+<h3 className="text-xl font-bold text-white uppercase mono">Lottie Runtimes</h3>
+
+<p className="text-xs text-white/40 leading-relaxed italic uppercase">Prioritized JSON animations over MP4, enabling gamification in low-bandwidth regions at 1/10th the cost.</p>
+
+</div>
+
+</div>
 
                 <div className="diagram-container mono whitespace-pre overflow-x-auto text-center rounded-sm">
 {`[ADHYAYAN CMS] --(0-CODE CONFIG)--> [POLYMOPRHIC JSON]
