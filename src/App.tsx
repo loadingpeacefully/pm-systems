@@ -45,6 +45,9 @@ import {
 // Import Registry for Project Pages
 import { PROJECT_PAGE_MAP } from "./pages/projects/registry";
 
+// Import Three.js rocket canvas
+import { PixelVoyagerCanvas } from "@/components/ui/pixel-rocket-voyager";
+
 // --- CONFIGURATION ---
 
 const CONFIG = {
@@ -531,8 +534,9 @@ function HomePortfolio() {
       <main className="relative z-10 pt-32 pb-24 px-6 max-w-7xl mx-auto">
         
         {/* 1. HERO SECTION */}
-        <section className="mb-40">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
+        <section className="mb-40 relative overflow-hidden rounded-sm">
+          <PixelVoyagerCanvas />
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-end py-16 px-2">
             <div className="lg:col-span-8">
               <div className="inline-flex items-center gap-2 mb-8 px-3 py-1 border border-[#39FF14]/30 bg-[#39FF14]/5 text-[#39FF14] text-[9px] font-bold tracking-[0.2em] uppercase">
                 <Terminal size={10} /> System Architect // Product Builder
