@@ -543,6 +543,21 @@ function HomePortfolio() {
       <div className="fixed inset-0 grid-bg pointer-events-none z-0" />
       <div className="scanline" />
 
+      {/* CURSOR SPOTLIGHT */}
+      <div
+        className="fixed pointer-events-none z-0 hidden md:block"
+        style={{
+          left: mousePos.x,
+          top: mousePos.y,
+          transform: 'translate(-50%, -50%)',
+          width: '600px',
+          height: '600px',
+          background: 'radial-gradient(circle, rgba(57,255,20,0.04) 0%, rgba(57,255,20,0.015) 30%, transparent 70%)',
+          borderRadius: '50%',
+          transition: 'left 0.08s ease-out, top 0.08s ease-out',
+        }}
+      />
+
       {/* ✅ BACK TO TOP BUTTON */}
       <BackToTop />
 
