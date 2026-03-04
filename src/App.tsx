@@ -1,5 +1,5 @@
-import React, { useState, useEffect, Suspense } from 'react';
-import { 
+import React, { useState, useEffect, useRef, Suspense } from 'react';
+import {
   Routes,
   Route,
   Link,
@@ -7,33 +7,33 @@ import {
   Navigate,
   useLocation
 } from 'react-router-dom';
-import { 
-  ArrowUpRight, 
-  Activity, 
-  Zap, 
-  Box, 
-  Cpu, 
-  Terminal, 
-  Globe, 
-  Database, 
-  Command, 
-  Briefcase, 
-  Mic, 
-  Scan, 
-  MapPin, 
-  HeartPulse, 
-  Palette, 
-  Plane, 
-  Footprints, 
-  Award, 
-  ChevronRight, 
-  Layout, 
-  Server, 
-  Code, 
-  X, 
-  Layers, 
-  Aperture, 
-  MessageSquare, 
+import {
+  ArrowUpRight,
+  Activity,
+  Zap,
+  Box,
+  Cpu,
+  Terminal,
+  Globe,
+  Database,
+  Command,
+  Briefcase,
+  Mic,
+  Scan,
+  MapPin,
+  HeartPulse,
+  Palette,
+  Plane,
+  Footprints,
+  Award,
+  ChevronRight,
+  Layout,
+  Server,
+  Code,
+  X,
+  Layers,
+  Aperture,
+  MessageSquare,
   Trophy,
   Brain,
   Rocket,
@@ -66,48 +66,48 @@ type ProjectId = "P1" | "P2" | "P3" | "P4" | "P5" | "P6" | "P7" | "P8" | "P9" | 
 
 const PROJECTS = [
   // BRIGHTCHAMPS
-  { 
-    id: "P1", 
-    title: "GEETA_AI", 
-    type: "CONTENT_OPS", 
-    icon: Cpu, 
-    desc: "Autonomous content factory scaling worksheet production 15x via Regex middleware & WYSIWYG review tools.", 
+  {
+    id: "P1",
+    title: "GEETA_AI",
+    type: "CONTENT_OPS",
+    icon: Cpu,
+    desc: "Autonomous content factory scaling worksheet production 15x via Regex middleware & WYSIWYG review tools.",
     color: "text-[#39FF14]", // Neon Green Override
-    border: "border-[#39FF14]", 
-    stack: "Python, Regex, GAS", 
-    metrics: ["10->150/wk Scale", "90% Cost Redux"] 
+    border: "border-[#39FF14]",
+    stack: "Python, Regex, GAS",
+    metrics: ["10->150/wk Scale", "90% Cost Redux"]
   },
-  { 
+  {
     id: "P14", // ✅ BUG FIXED: Changed from P2 to P14
-    title: "UNIFIED_CORE", 
-    type: "INFRA", 
-    icon: Server, 
-    desc: "Merged 3 companies (BrightChamps, FinLit, Schola) into one MySQL/Redis architecture.", 
-    color: "text-blue-400", 
-    border: "border-blue-500", 
-    stack: "MySQL, Redis, React", 
-    metrics: ["100% Migration", "Single SSO"] 
+    title: "UNIFIED_CORE",
+    type: "INFRA",
+    icon: Server,
+    desc: "Merged 3 companies (BrightChamps, FinLit, Schola) into one MySQL/Redis architecture.",
+    color: "text-blue-400",
+    border: "border-blue-500",
+    stack: "MySQL, Redis, React",
+    metrics: ["100% Migration", "Single SSO"]
   },
-  { 
-    id: "P2", 
-    title: "ADHYAYAN_OS", 
-    type: "GAMIFICATION", 
-    icon: Globe, 
-    desc: "JSON-driven 'Player' engine transforming static slides into 40+ game types.", 
+  {
+    id: "P2",
+    title: "ADHYAYAN_OS",
+    type: "GAMIFICATION",
+    icon: Globe,
+    desc: "JSON-driven 'Player' engine transforming static slides into 40+ game types.",
     color: "text-[#A855F7]", // Purple Override
-    border: "border-[#A855F7]", 
-    stack: "JSON Engine, React", 
-    metrics: ["90% Quiz Compl.", "Zero Idle Time"] 
+    border: "border-[#A855F7]",
+    stack: "JSON Engine, React",
+    metrics: ["90% Quiz Compl.", "Zero Idle Time"]
   },
   { id: "P4", title: "NANO_SKILLS", type: "D2C_GROWTH", icon: Rocket, desc: "Marketplace for micro-courses driving upsell via virtual currency ('Diamonds').", color: "text-pink-400", border: "border-pink-500", stack: "React, Payment Gtwy", metrics: ["3k+ Enrollments", "5% Margin Up"] },
   { id: "P8", title: "MATH_0_TO_1", type: "EDTECH", icon: Brain, desc: "Proprietary Math vertical aligned with US Common Core standards.", color: "text-purple-400", border: "border-purple-500", stack: "Curriculum Arch", metrics: ["60 Lessons/Wk", "Global Rollout"] },
-  { id: "P6", title: "TRIAL_BUDDY", type: "AI_SALES", icon: MessageSquare, desc: "RAG-based sales bot handling pre-sales queries on WhatsApp/Web.", color: "text-emerald-400", border: "border-emerald-500", stack: "RAG, WhatsApp API", metrics: ["Lead Recovery", "24/7 Context"] },
-  
+  { id: "P6", title: "SUMMER_CAMP", type: "GROWTH_OPS", icon: Plane, desc: "Full-funnel seasonal product: GeoIP checkout, self-serve scheduling, 5+ live camps, 15+ DIY courses across 30+ countries.", color: "text-yellow-400", border: "border-yellow-500", stack: "GeoIP, React, Stripe/Razorpay", metrics: ["30+ Countries", "Self-Serve Enroll"] },
+  { id: "P10", title: "PQS_REVAMP", type: "AI_EVAL", icon: Cpu, desc: "Redesigning BrightChamps' AI teacher scoring system — from binary logic to explainable, multi-modal evaluation with GPT-4o fallback.", color: "text-rose-400", border: "border-rose-500", stack: "GPT-4o, Deepgram, Whisper", metrics: ["32 Failure Modes Fixed", "Explainable AI"] },
+
   // WHEELSEYE
   { id: "P3", title: "FLEET_MKT", type: "MARKETPLACE", icon: Activity, desc: "Algorithmic truck allocation reducing booking time from 8hrs to 5mins.", color: "text-amber-400", border: "border-amber-500", stack: "Kafka, Go, Postgres", metrics: ["8hr -> 5min", "Real-Time Alloc"] },
   { id: "P13", title: "DIGITAL_KYC", type: "ONBOARDING", icon: Scan, desc: "Mobile-first driver verification reducing onboarding to 10m.", color: "text-indigo-400", border: "border-indigo-500", stack: "React Native, OpenCV", metrics: ["1 Week -> 10m", "100% Digital"] },
-  { id: "P12", title: "PRICE_VIS", type: "UX_LAB", icon: Database, desc: "Real-time transparent quoting UI to reduce consignor anxiety.", color: "text-orange-400", border: "border-orange-500", stack: "A/B Testing", metrics: ["Reduced Churn", "Trust Signal"] },
-  
+
   // ARTH
   { id: "P7", title: "BUILDWIT", type: "B2B_SAAS", icon: Box, desc: "Web-based feasibility solver for architectural proposals.", color: "text-cyan-400", border: "border-cyan-500", stack: "WebGL, JS", metrics: ["10 Paying Clients", "MVP Launch"] },
   { id: "P9", title: "DESIGN_AUTO", type: "WORKFLOW", icon: Command, desc: "Parametric scripts automating 95% of manual design iterations.", color: "text-purple-400", border: "border-purple-500", stack: "Grasshopper, C#", metrics: ["95% Time Saved", "73L Saved/Mo"] },
@@ -128,7 +128,7 @@ const MISSIONS = [
     brief: "Leading platform unification and AI automation for a global EdTech serving 30+ countries. Scaling content production 15x and driving monetization via new D2C verticals.",
     metrics: ["30+ Countries", "15x Scale", "100% Migration"],
     stack: ["React", "Python/RAG", "MySQL", "Redis"],
-    linkedProjects: ["P1", "P14", "P2", "P4", "P8", "P6"] // Updated P14 here too
+    linkedProjects: ["P1", "P14", "P2", "P4", "P8", "P6", "P10"]
   },
   {
     id: "M02",
@@ -143,7 +143,7 @@ const MISSIONS = [
     brief: "Transformed manual logistics brokerage into an algorithmic marketplace. Solved the 'Matching Problem' to cut truck confirmation times by 99%.",
     metrics: ["8hr->5min Speed", "Digital Bilti", "KYC Auto"],
     stack: ["Kafka", "Golang", "Postgres", "Google Maps"],
-    linkedProjects: ["P3", "P13", "P12"]
+    linkedProjects: ["P3", "P13"]
   },
   {
     id: "M01",
@@ -202,7 +202,7 @@ const BackToTop = () => {
     return () => window.removeEventListener("scroll", toggleVisibility);
   }, []);
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
-  
+
   if (!visible) return null;
   return (
     <button onClick={scrollToTop} className="fixed bottom-8 right-8 z-50 p-3 bg-black border border-white/20 text-white hover:border-[#39FF14] hover:text-[#39FF14] transition-all shadow-lg group">
@@ -222,14 +222,14 @@ const GlitchText = ({ text }: { text: string }) => (
 const ProjectTile = ({ project, compact = false, onClick, isSelected }: any) => {
   const borderColor = project.border || 'border-white';
   const textColor = project.color || 'text-white';
-  
+
   const Content = (
     <>
       <div className={`absolute top-0 left-0 w-full h-1 bg-transparent transition-colors duration-300 ${textColor.replace('text-', 'bg-')}`} />
-      
+
       <div className={`absolute inset-0 flex flex-col items-center justify-center text-center z-10 ${compact ? 'p-3' : 'p-6'}`}>
-        <project.icon 
-          className={`text-zinc-600 group-hover:text-white group-hover:scale-110 transition-all duration-300 ${isSelected ? textColor : ''} ${compact ? 'w-5 h-5 mb-2' : 'w-10 h-10 mb-4'}`} 
+        <project.icon
+          className={`text-zinc-600 group-hover:text-white group-hover:scale-110 transition-all duration-300 ${isSelected ? textColor : ''} ${compact ? 'w-5 h-5 mb-2' : 'w-10 h-10 mb-4'}`}
           strokeWidth={1.5}
         />
         <h3 className={`font-black text-white uppercase tracking-tight group-hover:tracking-widest transition-all ${compact ? 'text-[10px] mb-0.5' : 'text-sm mb-1'}`}>
@@ -269,10 +269,10 @@ const ProjectIntelPanel = ({ project }: any) => {
   return (
     <div className="mt-4 border-t border-white/10 pt-4 animate-in fade-in slide-in-from-top-2 duration-300">
       <div className="bg-[#0a0a0a] border border-white/10 p-5 rounded-sm relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10 pointer-events-none" 
-             style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '20px 20px' }} 
+        <div className="absolute inset-0 opacity-10 pointer-events-none"
+          style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '20px 20px' }}
         />
-        
+
         <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="md:col-span-2">
             <div className="flex items-center gap-3 mb-2">
@@ -315,7 +315,7 @@ const MissionCard = ({ mission }: any) => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeProject, setActiveProject] = useState<any>(null);
   const [showAllProjects, setShowAllProjects] = useState(false);
-  
+
   const linkedProjects = PROJECTS.filter(p => mission.linkedProjects.includes(p.id));
   const INITIAL_LIMIT = 8;
   const hasMoreProjects = linkedProjects.length > INITIAL_LIMIT;
@@ -324,9 +324,9 @@ const MissionCard = ({ mission }: any) => {
   return (
     <div className="group relative border-l-2 border-white/10 pl-8 pb-16 last:pb-0">
       <div className={`absolute -left-[9px] top-0 w-4 h-4 rounded-full border-2 bg-[#050505] transition-colors duration-300 ${isOpen ? mission.border + ' ' + mission.bg : 'border-zinc-700 group-hover:border-white'}`} />
-      
-      <div 
-        className="flex flex-col md:flex-row md:items-center justify-between cursor-pointer mb-6"
+
+      <div
+        className="flex flex-col sm:flex-row sm:items-center justify-between cursor-pointer mb-6 gap-3"
         onClick={() => setIsOpen(!isOpen)}
       >
         <div>
@@ -338,15 +338,15 @@ const MissionCard = ({ mission }: any) => {
               {mission.period}
             </span>
           </div>
-          <h3 className="text-3xl font-black text-white uppercase tracking-tighter group-hover:text-zinc-200 transition-colors">
+          <h3 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tighter group-hover:text-zinc-200 transition-colors">
             {mission.company}
           </h3>
-          <div className="text-sm font-bold text-zinc-400 uppercase tracking-widest mt-1">
+          <div className="text-xs sm:text-sm font-bold text-zinc-400 uppercase tracking-widest mt-1">
             {mission.role}
           </div>
         </div>
 
-        <div className={`mt-4 md:mt-0 flex items-center gap-2 px-4 py-2 border border-white/10 rounded-full transition-all ${isOpen ? mission.bg : 'bg-transparent'}`}>
+        <div className={`self-start sm:self-auto mt-1 sm:mt-0 flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 border border-white/10 rounded-full transition-all ${isOpen ? mission.bg : 'bg-transparent'}`}>
           <div className={`w-2 h-2 rounded-full ${isOpen ? 'animate-pulse ' + mission.accent : 'bg-zinc-600'}`} />
           <span className={`text-[9px] font-mono font-bold uppercase tracking-widest ${isOpen ? 'text-white' : 'text-zinc-500'}`}>
             {mission.status.replace(/_/g, ' ')}
@@ -358,7 +358,7 @@ const MissionCard = ({ mission }: any) => {
       <div className={`overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? 'max-h-[1200px] opacity-100' : 'max-h-0 opacity-50'}`}>
         <div className="bg-[#0a0a0a] border border-white/10 p-6 md:p-8 rounded-sm mb-6">
           <div className="grid grid-cols-1 gap-8">
-            
+
             {mission.brief && (
               <div className="border-b border-white/10 pb-6">
                 <div className="text-[10px] text-zinc-500 font-mono uppercase tracking-widest mb-2">Mission Brief</div>
@@ -377,32 +377,32 @@ const MissionCard = ({ mission }: any) => {
                   [{linkedProjects.length} MODULES]
                 </div>
               </div>
-              
+
               {linkedProjects.length > 0 ? (
                 <>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
                     {visibleProjects.map((p: any) => (
-                      <div 
+                      <div
                         key={p.id}
                         onClick={(e) => {
-                          e.preventDefault(); 
+                          e.preventDefault();
                           e.stopPropagation();
                           setActiveProject(activeProject?.id === p.id ? null : p);
                         }}
                       >
-                        <ProjectTile 
-                          project={p} 
-                          compact={true} 
+                        <ProjectTile
+                          project={p}
+                          compact={true}
                           isSelected={activeProject?.id === p.id}
-                          onClick={() => {}}
+                          onClick={() => { }}
                         />
                       </div>
                     ))}
                   </div>
-                  
+
                   {hasMoreProjects && (
                     <div className="flex justify-center mt-2">
-                      <button 
+                      <button
                         onClick={(e) => {
                           e.stopPropagation();
                           setShowAllProjects(!showAllProjects);
@@ -466,6 +466,7 @@ function ScrollToTop() {
 function HomePortfolio() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [showAllShips, setShowAllShips] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const BUILD_LIMIT = 8;
   const visibleProjects = showAllShips ? PROJECTS : PROJECTS.slice(0, BUILD_LIMIT);
 
@@ -473,13 +474,18 @@ function HomePortfolio() {
     const handleMouseMove = (e: MouseEvent) => {
       setMousePos({ x: e.clientX, y: e.clientY });
     };
+    const handleScroll = () => setScrolled(window.scrollY > 24);
     window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   return (
     <div className="min-h-screen bg-[#050505] text-[#d1d1d1] font-sans selection:bg-[#39FF14] selection:text-black overflow-x-hidden">
-      
+
       {/* GLOBAL STYLES */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Inter:wght@400;700;900&display=swap');
@@ -509,57 +515,101 @@ function HomePortfolio() {
         }
         .animate-marquee { animation: marquee 40s linear infinite; }
         .animate-marquee-reverse { animation: marquee-reverse 40s linear infinite; }
+
+        @keyframes header-enter {
+          from { transform: translateY(-100%); opacity: 0; }
+          to { transform: translateY(0); opacity: 1; }
+        }
+        .header-enter { animation: header-enter 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+        @keyframes blink {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0; }
+        }
+        .cursor-blink { animation: blink 1.2s step-end infinite; }
+
+        @keyframes shimmer {
+          0% { background-position: -200% center; }
+          100% { background-position: 200% center; }
+        }
+        .header-shimmer {
+          background: linear-gradient(90deg, transparent 0%, rgba(57,255,20,0.4) 50%, transparent 100%);
+          background-size: 200% 100%;
+          animation: shimmer 3s ease-in-out infinite;
+        }
       `}</style>
 
       {/* BACKGROUND */}
       <div className="fixed inset-0 grid-bg pointer-events-none z-0" />
       <div className="scanline" />
-      
+
       {/* ✅ BACK TO TOP BUTTON */}
       <BackToTop />
 
       {/* HEADER */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-[#050505]/90 backdrop-blur-md border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-3 h-3 bg-[#39FF14] shadow-[0_0_10px_#39FF14] animate-pulse" />
-            <div className="text-sm font-black tracking-widest text-white uppercase">SUNEET.JAGDEV</div>
+      <header className={`header-enter fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b transition-all duration-500 ${scrolled ? 'bg-[#050505]/98 border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.6)]' : 'bg-[#050505]/70 border-white/5'}`}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
+          {/* Logo / Name */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className="relative flex items-center justify-center w-6 h-6">
+              <div className="absolute w-6 h-6 bg-[#39FF14]/10 rounded-full animate-ping" style={{ animationDuration: '2.5s' }} />
+              <div className="w-2 h-2 bg-[#39FF14] rounded-full shadow-[0_0_8px_#39FF14]" />
+            </div>
+            <div className="text-xs sm:text-sm font-black tracking-[0.15em] sm:tracking-widest text-white uppercase">
+              SUNEET<span className="text-[#39FF14]">.JAGDEV</span><span className="cursor-blink text-[#39FF14] ml-px">_</span>
+            </div>
           </div>
-          <button className="hidden md:flex items-center gap-2 px-4 py-2 border border-white/10 text-[10px] font-bold tracking-widest text-white hover:bg-white hover:text-black transition-all uppercase">
-            <MessageSquare size={12} /> Contact Me
-          </button>
+
+          {/* Right side */}
+          <div className="flex items-center gap-3 sm:gap-4">
+            <div className="hidden sm:flex items-center gap-1.5 text-[9px] font-mono text-zinc-500 uppercase tracking-widest">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#39FF14] shadow-[0_0_4px_#39FF14] animate-pulse" />
+              Available
+            </div>
+            <a
+              href="mailto:suneet@jagdev.in"
+              className="flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 border border-white/15 text-[9px] sm:text-[10px] font-bold tracking-widest text-white hover:bg-[#39FF14] hover:text-black hover:border-[#39FF14] transition-all duration-200 uppercase"
+            >
+              <MessageSquare size={10} />
+              <span className="hidden xs:inline sm:inline">Contact</span>
+            </a>
+          </div>
+        </div>
+
+        {/* Animated shimmer line at bottom */}
+        <div className="absolute bottom-0 left-0 right-0 h-px overflow-hidden">
+          <div className={`h-full header-shimmer transition-opacity duration-500 ${scrolled ? 'opacity-100' : 'opacity-40'}`} />
         </div>
       </header>
 
-      <main className="relative z-10 pt-32 pb-24 px-6 max-w-7xl mx-auto">
-        
+      <main className="relative z-10 pt-24 sm:pt-28 md:pt-32 pb-16 sm:pb-24 px-4 sm:px-6 max-w-7xl mx-auto">
+
         {/* 1. HERO SECTION */}
-        <section className="mb-40 relative overflow-hidden rounded-sm">
-          <PixelVoyagerCanvas />
-          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-end py-16 px-2">
+        <section className="mb-20 sm:mb-32 lg:mb-40 relative overflow-hidden rounded-sm">
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end py-10 sm:py-16 px-0 sm:px-2">
             <div className="lg:col-span-8">
-              <div className="inline-flex items-center gap-2 mb-8 px-3 py-1 border border-[#39FF14]/30 bg-[#39FF14]/5 text-[#39FF14] text-[9px] font-bold tracking-[0.2em] uppercase">
+              <div className="inline-flex items-center gap-2 mb-6 sm:mb-8 px-3 py-1 border border-[#39FF14]/30 bg-[#39FF14]/5 text-[#39FF14] text-[9px] font-bold tracking-[0.2em] uppercase">
                 <Terminal size={10} /> System Architect // Product Builder
               </div>
-              <h1 className="text-6xl md:text-[7rem] leading-[0.85] font-black text-white tracking-tighter uppercase mb-8">
-                <GlitchText text="ARCHITECTING" /> <br/>
+              <h1 className="text-5xl sm:text-6xl md:text-[7rem] leading-[0.85] font-black text-white tracking-tighter uppercase mb-6 sm:mb-8">
+                <GlitchText text="ARCHITECTING" /> <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-500 to-zinc-700">SCALE.</span>
               </h1>
-              <p className="text-xl md:text-2xl text-white/60 max-w-2xl font-medium leading-relaxed">
+              <p className="text-base sm:text-xl md:text-2xl text-white/60 max-w-2xl font-medium leading-relaxed">
                 I transform fragmented chaos into unified systems. Specializing in <span className="text-white">Platform Consolidation</span>, <span className="text-white">AI Automation</span>, and <span className="text-white">Monetization Engines</span>.
               </p>
             </div>
-            
+
             {/* Quick Stats */}
-            <div className="lg:col-span-4 flex flex-col gap-6">
+            <div className="lg:col-span-4 grid grid-cols-3 lg:grid-cols-1 gap-3 lg:gap-6 mt-2 lg:mt-0">
               {[
                 { label: "Global Users", val: "10M+" },
                 { label: "Systems Unified", val: "14+" },
                 { label: "Revenue Impact", val: "+18%" }
               ].map((s, i) => (
-                <div key={i} className="flex items-center justify-between border-b border-white/10 pb-2">
-                  <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">{s.label}</span>
-                  <span className="text-xl font-bold text-[#39FF14] mono">{s.val}</span>
+                <div key={i} className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-white/10 pb-2 gap-1">
+                  <span className="text-[9px] sm:text-[10px] font-mono text-zinc-500 uppercase tracking-widest">{s.label}</span>
+                  <span className="text-lg sm:text-xl font-bold text-[#39FF14] mono">{s.val}</span>
                 </div>
               ))}
             </div>
@@ -567,10 +617,10 @@ function HomePortfolio() {
         </section>
 
         {/* 2. THE MISSION LOG (EXPERIENCE) */}
-        <section className="mb-40">
-          <div className="flex items-end justify-between mb-16 border-b border-white/10 pb-6">
-            <h2 className="text-4xl font-black text-white uppercase tracking-tighter flex items-center gap-4">
-              <Server size={32} className="text-[#39FF14]" />
+        <section className="mb-20 sm:mb-32 lg:mb-40">
+          <div className="flex items-end justify-between mb-10 sm:mb-16 border-b border-white/10 pb-5 sm:pb-6">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white uppercase tracking-tighter flex items-center gap-3 sm:gap-4">
+              <Server size={24} className="text-[#39FF14] sm:w-8 sm:h-8" />
               Mission Log
             </h2>
             <span className="font-mono text-[10px] text-zinc-500 uppercase tracking-widest hidden md:block">
@@ -586,10 +636,10 @@ function HomePortfolio() {
         </section>
 
         {/* 3. THE ARSENAL (PROJECTS) */}
-        <section className="mb-40">
-          <div className="flex items-end justify-between mb-12">
-            <h2 className="text-4xl font-black text-white uppercase tracking-tighter flex items-center gap-4">
-              <Layout size={32} className="text-[#39FF14]" />
+        <section className="mb-20 sm:mb-32 lg:mb-40">
+          <div className="flex items-end justify-between mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white uppercase tracking-tighter flex items-center gap-3 sm:gap-4">
+              <Layout size={24} className="text-[#39FF14] sm:w-8 sm:h-8" />
               The Build Grid
             </h2>
           </div>
@@ -599,28 +649,28 @@ function HomePortfolio() {
               <ProjectTile key={project.id} project={project} />
             ))}
           </div>
-          
+
           {PROJECTS.length > BUILD_LIMIT && (
-             <div className="flex justify-center mt-8">
-                <button 
-                  onClick={() => setShowAllShips(!showAllShips)}
-                  className="flex items-center gap-2 text-xs font-bold text-white border border-[#39FF14] px-6 py-3 uppercase tracking-widest hover:bg-[#39FF14] hover:text-black transition-all"
-                >
-                  {showAllShips ? (
-                    <>Collapse System <ChevronUp size={14} /></>
-                  ) : (
-                    <>View All {PROJECTS.length} Ships <ChevronDown size={14} /></>
-                  )}
-                </button>
-             </div>
+            <div className="flex justify-center mt-8">
+              <button
+                onClick={() => setShowAllShips(!showAllShips)}
+                className="flex items-center gap-2 text-xs font-bold text-white border border-[#39FF14] px-6 py-3 uppercase tracking-widest hover:bg-[#39FF14] hover:text-black transition-all"
+              >
+                {showAllShips ? (
+                  <>Collapse System <ChevronUp size={14} /></>
+                ) : (
+                  <>View All {PROJECTS.length} Ships <ChevronDown size={14} /></>
+                )}
+              </button>
+            </div>
           )}
         </section>
 
         {/* 4. BIO-METRICS (PERSONAL) */}
-        <section className="mb-32">
-          <div className="flex items-end justify-between mb-16 border-b border-white/10 pb-6">
-            <h2 className="text-4xl font-black text-white uppercase tracking-tighter flex items-center gap-4">
-              <Activity size={32} className="text-[#39FF14]" />
+        <section className="mb-20 sm:mb-32">
+          <div className="flex items-end justify-between mb-10 sm:mb-16 border-b border-white/10 pb-5 sm:pb-6">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white uppercase tracking-tighter flex items-center gap-3 sm:gap-4">
+              <Activity size={24} className="text-[#39FF14] sm:w-8 sm:h-8" />
               Human O.S.
             </h2>
             <span className="font-mono text-[10px] text-zinc-500 uppercase tracking-widest hidden md:block">
@@ -632,12 +682,12 @@ function HomePortfolio() {
           <div className="w-full overflow-hidden border-y border-white/10 bg-[#0a0a0a] py-12 relative group">
             <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[#050505] to-transparent z-10 pointer-events-none" />
             <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[#050505] to-transparent z-10 pointer-events-none" />
-            
+
             {/* Stream 1: Left */}
             <div className="flex gap-6 animate-marquee mb-6 hover:[animation-play-state:paused]">
               {[...FACTS_STREAM_1, ...FACTS_STREAM_1, ...FACTS_STREAM_1].map((fact, i) => (
-                <div 
-                  key={`r1-${i}`} 
+                <div
+                  key={`r1-${i}`}
                   className="flex-shrink-0 w-[280px] bg-[#050505] border border-white/10 p-5 flex items-center gap-4 hover:border-white/30 hover:bg-white/[0.02] transition-all"
                 >
                   <div className={`p-2.5 rounded bg-white/5 border border-white/5 ${fact.color}`}>
@@ -654,8 +704,8 @@ function HomePortfolio() {
             {/* Stream 2: Right */}
             <div className="flex gap-6 animate-marquee-reverse hover:[animation-play-state:paused]">
               {[...FACTS_STREAM_2, ...FACTS_STREAM_2, ...FACTS_STREAM_2].map((fact, i) => (
-                <div 
-                  key={`r2-${i}`} 
+                <div
+                  key={`r2-${i}`}
                   className="flex-shrink-0 w-[280px] bg-[#050505] border border-white/10 p-5 flex items-center gap-4 hover:border-white/30 hover:bg-white/[0.02] transition-all"
                 >
                   <div className={`p-2.5 rounded bg-white/5 border border-white/5 ${fact.color}`}>
@@ -672,10 +722,10 @@ function HomePortfolio() {
         </section>
 
         {/* 5. TROPHY CASE (AWARDS) */}
-        <section className="mb-40">
-          <div className="flex items-end justify-between mb-16 border-b border-white/10 pb-6">
-            <h2 className="text-4xl font-black text-white uppercase tracking-tighter flex items-center gap-4">
-              <Trophy size={32} className="text-[#39FF14]" />
+        <section className="mb-20 sm:mb-32 lg:mb-40">
+          <div className="flex items-end justify-between mb-10 sm:mb-16 border-b border-white/10 pb-5 sm:pb-6">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white uppercase tracking-tighter flex items-center gap-3 sm:gap-4">
+              <Trophy size={24} className="text-[#39FF14] sm:w-8 sm:h-8" />
               Trophy Case
             </h2>
             <span className="font-mono text-[10px] text-zinc-500 uppercase tracking-widest hidden md:block">
@@ -691,22 +741,22 @@ function HomePortfolio() {
         </section>
 
         {/* FOOTER */}
-        <footer className="pt-20 border-t border-white/10 flex flex-col items-center justify-center text-center">
-          <h2 className="text-6xl md:text-9xl font-black text-white tracking-tighter uppercase mb-8 hover:text-[#39FF14] transition-colors cursor-pointer">
+        <footer className="pt-16 sm:pt-20 border-t border-white/10 flex flex-col items-center justify-center text-center">
+          <h2 className="text-4xl sm:text-6xl md:text-9xl font-black text-white tracking-tighter uppercase mb-6 sm:mb-8 hover:text-[#39FF14] transition-colors cursor-pointer leading-[0.9]">
             Get In <br /> Touch.
           </h2>
-          <div className="flex gap-8 mb-12">
+          <div className="flex flex-wrap justify-center gap-6 sm:gap-8 mb-10 sm:mb-12">
             {["LinkedIn", "Twitter", "Email", "Github"].map((link) => (
               <a
                 key={link}
                 href="#"
-                className="text-sm font-bold text-zinc-500 hover:text-white uppercase tracking-widest transition-colors"
+                className="text-xs sm:text-sm font-bold text-zinc-500 hover:text-white uppercase tracking-widest transition-colors"
               >
                 {link}
               </a>
             ))}
           </div>
-          <div className="font-mono text-xs text-zinc-700 uppercase tracking-widest mb-12">
+          <div className="font-mono text-xs text-zinc-700 uppercase tracking-widest mb-10 sm:mb-12 px-4 text-center">
             © {new Date().getFullYear()} Suneet Jagdev. Built in React & Tailwind.
           </div>
         </footer>
@@ -741,6 +791,7 @@ function ProjectPage() {
 export default function App() {
   return (
     <>
+      <PixelVoyagerCanvas />
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<HomePortfolio />} />

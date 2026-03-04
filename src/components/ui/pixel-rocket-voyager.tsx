@@ -1,9 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import * as THREE from 'three';
-import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
-import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
-import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 
 // --- Three.js Canvas Component ---
 export const PixelVoyagerCanvas = () => {
@@ -16,40 +13,13 @@ export const PixelVoyagerCanvas = () => {
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
     camera.position.z = 25;
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
     renderer.setSize(container.clientWidth, container.clientHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     container.appendChild(renderer.domElement);
 
     const mouse = new THREE.Vector2(0, 0);
     const clock = new THREE.Clock();
-
-    // Always use dark mode settings since the portfolio is dark-themed
-    const isDarkMode = true;
-
-    // Post-processing for bloom effect
-    const renderScene = new RenderPass(scene, camera);
-    const bloomPass = new UnrealBloomPass(new THREE.Vector2(container.clientWidth, container.clientHeight), 1.5, 0.4, 0.85);
-    bloomPass.threshold = 0;
-    bloomPass.strength = 1.2;
-    bloomPass.radius = 0;
-    const composer = new EffectComposer(renderer);
-    composer.addPass(renderScene);
-    composer.addPass(bloomPass);
-
-    // --- Starfield ---
-    const starGeometry = new THREE.BufferGeometry();
-    const starVertices = [];
-    for (let i = 0; i < 1500; i++) {
-      const x = (Math.random() - 0.5) * 100;
-      const y = (Math.random() - 0.5) * 100;
-      const z = (Math.random() - 0.5) * 100;
-      starVertices.push(x, y, z);
-    }
-    starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
-    const starMaterial = new THREE.PointsMaterial({ color: isDarkMode ? 0xffffff : 0x555555, size: 0.1 });
-    const stars = new THREE.Points(starGeometry, starMaterial);
-    scene.add(stars);
 
     // --- Pixel Rocket ---
     const rocket = new THREE.Group();
@@ -91,21 +61,10 @@ export const PixelVoyagerCanvas = () => {
       trailPool.push(particle);
     }
 
-    // --- Crypto Coins ---
-    const coinGroup = new THREE.Group();
-    const coinMat = new THREE.MeshStandardMaterial({ color: 0xffd700, flatShading: true });
-    for (let i = 0; i < 20; i++) {
-      const coin = new THREE.Group();
-      for (let p = 0; p < 15; p++) {
-        const pixel = new THREE.Mesh(pixelGeo, coinMat);
-        const angle = (p / 15) * Math.PI * 2;
-        pixel.position.set(Math.cos(angle) * 0.4, Math.sin(angle) * 0.4, 0);
-        coin.add(pixel);
-      }
-      coin.position.set((Math.random() - 0.5) * 40, (Math.random() - 0.5) * 30, (Math.random() - 0.5) * 20);
-      coinGroup.add(coin);
-    }
-    scene.add(coinGroup);
+
+    // Lerp target for smooth following
+    const targetPos = new THREE.Vector3(0, 0, 0);
+    const rocketBottom = 4 * pixelSize; // exact bottom of rocket body
 
     const handleMouseMove = (event: MouseEvent) => {
       mouse.x = (event.clientX / container.clientWidth) * 2 - 1;
@@ -117,37 +76,39 @@ export const PixelVoyagerCanvas = () => {
     const animate = () => {
       animFrameId = requestAnimationFrame(animate);
       const delta = clock.getDelta();
-      const elapsedTime = clock.getElapsedTime();
 
-      const targetPosition = new THREE.Vector3(mouse.x * 15, mouse.y * 10, 0);
-      rocket.position.lerp(targetPosition, 0.05);
-      rocket.rotation.y = (targetPosition.x - rocket.position.x) * 0.1;
-      rocket.rotation.x = -(targetPosition.y - rocket.position.y) * 0.1;
+      // Smooth lerp toward cursor — natural inertia feel
+      targetPos.set(mouse.x * 15, mouse.y * 10, 0);
+      rocket.position.lerp(targetPos, 0.14);
 
-      if (Math.random() > 0.3) {
-        const particle = trailPool[trailIndex];
-        particle.position.copy(rocket.position);
-        particle.position.y -= 0.7;
+      // Lerp tilt for smooth banking
+      rocket.rotation.y += (mouse.x * 0.3 - rocket.rotation.y) * 0.1;
+      rocket.rotation.x += (-mouse.y * 0.2 - rocket.rotation.x) * 0.1;
+
+      // Spawn 2 trail particles per frame — no gap, dense trail
+      for (let t = 0; t < 2; t++) {
+        const particle = trailPool[trailIndex] as THREE.Mesh & { life: number };
+        particle.position.set(
+          rocket.position.x + (Math.random() - 0.5) * 0.2,
+          rocket.position.y - rocketBottom,
+          rocket.position.z
+        );
         particle.scale.setScalar(1);
         particle.visible = true;
-        (particle as THREE.Mesh & { life: number }).life = 1;
+        particle.life = 1;
         trailIndex = (trailIndex + 1) % trailSize;
       }
 
       trailPool.forEach(p => {
         const particle = p as THREE.Mesh & { life: number };
         if (particle.visible) {
-          particle.life -= delta * 1.5;
-          particle.scale.setScalar(particle.life);
+          particle.life -= delta * 2;
+          particle.scale.setScalar(Math.max(0, particle.life));
           if (particle.life <= 0) particle.visible = false;
         }
       });
 
-      coinGroup.children.forEach((coin, i) => {
-        coin.rotation.z = elapsedTime * (i % 2 === 0 ? 1 : -1);
-      });
-
-      composer.render();
+      renderer.render(scene, camera);
     };
     animate();
 
@@ -155,7 +116,6 @@ export const PixelVoyagerCanvas = () => {
       camera.aspect = container.clientWidth / container.clientHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(container.clientWidth, container.clientHeight);
-      composer.setSize(container.clientWidth, container.clientHeight);
     };
     window.addEventListener('resize', handleResize);
 
@@ -170,7 +130,7 @@ export const PixelVoyagerCanvas = () => {
     };
   }, []);
 
-  return <div ref={mountRef} className="absolute inset-0 z-0" />;
+  return <div ref={mountRef} className="fixed inset-0 z-0 pointer-events-none" />;
 };
 
 // --- Navigation Component ---
