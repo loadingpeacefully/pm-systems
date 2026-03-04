@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { ProjectNav } from "@/components/ProjectNav";
 import {
   ArrowUp,
   Brain,
@@ -234,36 +234,23 @@ export default function MathVertical() {
       <div className="grid-overlay min-h-screen">
 
         {/* ── SECTION 1: HERO ── */}
-        <header className="min-h-screen flex flex-col px-6 md:px-20 relative overflow-hidden bg-[#050505] border-b border-white/5">
+        <ProjectNav nextTo="/p/P6" nextLabel="SUMMER_CAMP" nextColor="text-yellow-400" />
+
+        <header className="min-h-screen flex flex-col px-4 sm:px-6 md:px-20 relative overflow-hidden bg-[#050505] border-b border-white/5">
           <div className="scanline" />
 
-          <div className="w-full pt-10 flex items-center justify-between z-20">
-            <Link
-              to="/"
-              className="text-[10px] font-mono uppercase tracking-[0.4em] text-violet-400 hover:opacity-80 transition-opacity"
-            >
-              &lt;&lt; RETURN_TO_DASHBOARD
-            </Link>
-            <Link
-              to="/p/P6"
-              className="text-[10px] font-mono uppercase tracking-[0.2em] text-yellow-400 hover:opacity-80 transition-opacity border-b border-yellow-400/30 pb-1"
-            >
-              NEXT_INTEL: SUMMER_CAMP &gt;&gt;
-            </Link>
-          </div>
-
-          <div className="flex-grow flex flex-col justify-center relative z-10 py-6 md:py-12">
+          <div className="flex-grow flex flex-col justify-center relative z-10 pt-14 sm:pt-16 py-6 md:py-12">
             <div className="max-w-7xl space-y-4 md:space-y-6">
               <div className="inline-flex items-center gap-2 mb-4 px-3 py-1 border border-violet-400/30 bg-violet-400/5 text-violet-400 text-[9px] font-bold tracking-[0.2em] uppercase">
                 <Brain size={10} /> // EDTECH · 0→1 BUILD · UNIT ECONOMICS
               </div>
 
-              <h1 className="text-6xl md:text-[7rem] font-black tracking-tighter leading-[0.85] uppercase text-white">
+              <h1 className="text-4xl sm:text-6xl md:text-[7rem] font-black tracking-tighter leading-[0.85] uppercase text-white">
                 MATH <br />
                 <span className="text-violet-400">0 TO 1</span>
               </h1>
 
-              <p className="text-xl md:text-2xl text-white/70 leading-relaxed font-bold max-w-5xl uppercase tracking-tight">
+              <p className="text-base sm:text-xl md:text-2xl text-white/70 leading-relaxed font-bold max-w-5xl uppercase tracking-tight">
                 Building BrightChamps' proprietary Math vertical from a blank page —
                 curriculum architecture, AI-powered content at scale, and a new delivery
                 model that shifted 1:1 classes to 1:20 group sessions.
@@ -295,7 +282,7 @@ export default function MathVertical() {
         </header>
 
         {/* ── SECTION 2: DIAGNOSTIC ── */}
-        <section className="py-24 md:py-32 px-6 md:px-20 max-w-7xl mx-auto scroll-reveal">
+        <section className="py-14 sm:py-20 md:py-32 px-4 sm:px-6 md:px-20 max-w-7xl mx-auto scroll-reveal">
           <div className="mb-16 space-y-4">
             <span className="text-crimson opacity-60 font-bold uppercase tracking-[0.6em] text-[10px] block">
               // DIAGNOSTIC_OVERRIDE: THREE_FAILURE_MODES
@@ -307,7 +294,7 @@ export default function MathVertical() {
             </h2>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 md:gap-16 items-center">
             {/* LEFT: CAROUSEL */}
             <div className="space-y-12">
               <div className="relative min-h-[300px] flex flex-col justify-between">
@@ -430,7 +417,7 @@ export default function MathVertical() {
         </section>
 
         {/* ── SECTION 3: CURRICULUM FRAMEWORK (4-LAYER CLICK-TO-EXPAND) ── */}
-        <section className="py-24 md:py-32 bg-white/[0.02] border-y border-white/5 px-6 md:px-20 scroll-reveal">
+        <section className="py-14 sm:py-20 md:py-32 bg-white/[0.02] border-y border-white/5 px-4 sm:px-6 md:px-20 scroll-reveal">
           <div className="max-w-7xl mx-auto space-y-16">
             <div className="text-center space-y-4">
               <span className="text-violet-400 font-black uppercase tracking-[0.4em] text-[10px] md:text-xs">
@@ -510,7 +497,7 @@ export default function MathVertical() {
         </section>
 
         {/* ── SECTION 4: DEEP DIVE A — GROUP CLASS INFRASTRUCTURE ── */}
-        <section className="py-24 md:py-32 px-6 md:px-20 max-w-7xl mx-auto scroll-reveal">
+        <section className="py-14 sm:py-20 md:py-32 px-4 sm:px-6 md:px-20 max-w-7xl mx-auto scroll-reveal">
           <div className="mb-16 space-y-4">
             <span className="text-violet-400 font-black uppercase tracking-[0.4em] text-[10px] md:text-xs">
               DELIVERY_SYSTEM
@@ -521,7 +508,7 @@ export default function MathVertical() {
             </h2>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-20 items-start">
+          <div className="grid lg:grid-cols-2 gap-10 md:gap-20 items-start">
             {/* LEFT: DATA NODES */}
             <div className="space-y-12">
               {[
@@ -610,7 +597,7 @@ export default function MathVertical() {
         </section>
 
         {/* ── SECTION 5: DEEP DIVE B — NUMON PRACTICE ZONE ── */}
-        <section className="py-24 md:py-40 bg-white/[0.02] border-y border-white/5 px-6 md:px-20 scroll-reveal">
+        <section className="py-14 sm:py-20 md:py-40 bg-white/[0.02] border-y border-white/5 px-4 sm:px-6 md:px-20 scroll-reveal">
           <div className="max-w-7xl mx-auto">
             <div className="mb-16 space-y-4">
               <span className="text-violet-400 font-black uppercase tracking-[0.4em] text-[10px] md:text-xs">
@@ -622,7 +609,7 @@ export default function MathVertical() {
               </h2>
             </div>
 
-            <div className="grid lg:grid-cols-2 gap-20 items-start">
+            <div className="grid lg:grid-cols-2 gap-10 md:gap-20 items-start">
               {/* LEFT: NUMON TERMINAL */}
               <div className="terminal-block rounded-sm overflow-hidden">
                 <div className="bg-white/5 px-4 py-3 flex items-center justify-between border-b border-white/5">
@@ -726,7 +713,7 @@ export default function MathVertical() {
         </section>
 
         {/* ── SECTION 6: FOOTER — IMPACT LOG ── */}
-        <footer className="py-24 md:py-40 text-center border-t border-white/5 bg-[#080808]">
+        <footer className="py-14 sm:py-20 md:py-40 text-center border-t border-white/5 bg-[#080808]">
           <div className="max-w-4xl mx-auto px-6 space-y-12">
             <p className="text-[10px] text-white/20 uppercase tracking-[0.8em] font-bold">IMPACT_SUMMARY_LOG</p>
 

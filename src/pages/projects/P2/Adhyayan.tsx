@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { ProjectNav } from "@/components/ProjectNav";
 import { ArrowUp } from "lucide-react";
 
 export default function Adhyayan() {
@@ -154,36 +154,20 @@ export default function Adhyayan() {
       )}
 
       <div className="grid-overlay min-h-screen">
+        <ProjectNav nextTo="/p/P4" nextLabel="NANO_SKILLS" nextColor="text-pink-400" />
+
         {/* SECTION 1: SYSTEM DIRECTIVE (HERO) */}
-        <header className="min-h-screen flex flex-col px-6 md:px-20 relative overflow-hidden bg-[#050505] border-b border-white/5">
+        <header className="min-h-screen flex flex-col px-4 sm:px-6 md:px-20 relative overflow-hidden bg-[#050505] border-b border-white/5">
             <div className="scanline"></div>
 
-            {/* TOP NAV: Simple Return Link + Next Project */}
-            <div className="w-full pt-10 flex items-center justify-between z-20">
-                <Link
-                  to="/"
-                  className="text-[10px] font-mono uppercase tracking-[0.4em] text-[#A855F7] hover:opacity-80 transition-opacity"
-                >
-                  &lt;&lt; RETURN_TO_DASHBOARD
-                </Link>
-
-                {/* NEXT PROJECT: NANO SKILLS (PINK) */}
-                <Link 
-                  to="/p/P4" 
-                  className="text-[10px] font-mono uppercase tracking-[0.2em] text-pink-400 hover:opacity-80 transition-opacity border-b border-pink-400/30 pb-1"
-                >
-                  NEXT_INTEL: NANO_SKILLS &gt;&gt;
-                </Link>
-            </div>
-            
             {/* CENTERPIECE (HERO) */}
-            <div className="flex-grow flex flex-col justify-center relative z-10 py-6 md:py-12">
+            <div className="flex-grow flex flex-col justify-center relative z-10 pt-14 sm:pt-16 py-6 md:py-12">
                 <div className="max-w-7xl space-y-4 md:space-y-6">
-                    <h1 className="text-6xl md:text-[8rem] font-black tracking-tighter leading-[0.85] uppercase text-white">
+                    <h1 className="text-4xl sm:text-6xl md:text-[8rem] font-black tracking-tighter leading-[0.85] uppercase text-white">
                         PROJECT <br/> <span className="text-purple">ADHYAYAN</span>
                     </h1>
-                    
-                    <p className="text-xl md:text-3xl text-white/70 leading-relaxed font-bold max-w-5xl uppercase tracking-tight">
+
+                    <p className="text-base sm:text-xl md:text-3xl text-white/70 leading-relaxed font-bold max-w-5xl uppercase tracking-tight">
                         Replacing static Slides with student-led interactive mastery through a decoupled JSON rendering engine.
                     </p>
 
@@ -219,7 +203,7 @@ export default function Adhyayan() {
         </header>
 
         {/* SECTION 2: THE DIAGNOSTIC — SYSTEM COLLAPSE AT SCALE */}
-        <section className="min-h-screen py-24 md:py-40 px-6 md:px-20 max-w-7xl mx-auto flex flex-col justify-center scroll-reveal">
+        <section className="min-h-screen py-14 sm:py-20 md:py-40 px-4 sm:px-6 md:px-20 max-w-7xl mx-auto flex flex-col justify-center scroll-reveal">
             
             {/* Diagnostic Header */}
             <div className="mb-20 space-y-4">
@@ -330,7 +314,7 @@ export default function Adhyayan() {
 
         {/* SECTION 3: THE PLAYER ARCHITECTURE */}
 
-<section className="py-24 md:py-32 bg-white/[0.02] border-y border-white/5 px-6 md:px-20 scroll-reveal">
+<section className="py-14 sm:py-20 md:py-32 bg-white/[0.02] border-y border-white/5 px-4 sm:px-6 md:px-20 scroll-reveal">
 
 <div className="max-w-7xl mx-auto space-y-16">
 
@@ -391,9 +375,9 @@ export default function Adhyayan() {
         </section>
 
         {/* SECTION 4: THE ADHYAYAN CMS */}
-        <section className="py-24 md:py-32 px-6 md:px-20 max-w-7xl mx-auto space-y-40">
+        <section className="py-14 sm:py-20 md:py-32 px-4 sm:px-6 md:px-20 max-w-7xl mx-auto space-y-40">
             <div className="scroll-reveal">
-                <div className="grid lg:grid-cols-2 gap-20 items-center">
+                <div className="grid lg:grid-cols-2 gap-10 md:gap-20 items-center">
                     <div className="space-y-10">
                         <div className="flex items-center gap-4">
                             <span className="px-2 py-1 bg-purple-500/10 text-purple-400 text-[10px] font-bold border border-purple-500/30 uppercase tracking-widest font-black">CONTENT_OPS</span>
@@ -431,8 +415,8 @@ export default function Adhyayan() {
         </section>
 
         {/* SECTION 5: THE ARCADE (QUIZ GALAXY) */}
-        <section className="py-24 md:py-40 bg-white/[0.02] border-y border-white/5 px-6 md:px-20 scroll-reveal">
-            <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
+        <section className="py-14 sm:py-20 md:py-40 bg-white/[0.02] border-y border-white/5 px-4 sm:px-6 md:px-20 scroll-reveal">
+            <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-10 md:gap-20 items-center">
                 <div className="order-2 lg:order-1 terminal-block p-10 rounded-sm relative">
                     <div className="text-[10px] mono text-white/20 tracking-[0.4em] uppercase mb-8 text-center font-black">GALACTIC_NAV_SYSTEM</div>
                     <div className="flex justify-center gap-6 mb-12">

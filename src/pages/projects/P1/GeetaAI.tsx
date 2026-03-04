@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { AlertTriangle, Terminal, XCircle, Activity, EyeOff, AlertOctagon, ChevronLeft, ChevronRight, ArrowUp } from "lucide-react";
+import { ProjectNav } from "@/components/ProjectNav";
 
 export default function GeetaAI() {
   const [currentProblemIndex, setCurrentProblemIndex] = useState(0);
@@ -64,22 +64,18 @@ export default function GeetaAI() {
         </button>
       )}
 
+      <ProjectNav nextTo="/p/P14" nextLabel="UNIFIED_CORE" nextColor="text-blue-400" />
+
       <div className="grid-overlay min-h-screen">
-        <header className="min-h-screen flex flex-col px-6 md:px-20 relative overflow-hidden bg-[#050505] border-b border-white/5">
+        <header className="min-h-screen flex flex-col px-4 sm:px-6 md:px-20 relative overflow-hidden bg-[#050505] border-b border-white/5">
           <div className="scanline" />
-          <div className="w-full pt-10 flex items-center justify-between z-20">
-            <Link to="/" className="text-[10px] font-mono uppercase tracking-[0.4em] text-[#39FF14] hover:opacity-80 transition-opacity">&lt;&lt; RETURN_TO_DASHBOARD</Link>
-            
-            {/* NEXT PROJECT: UNIFIED CORE (BLUE) */}
-            <Link to="/p/P14" className="text-[10px] font-mono uppercase tracking-[0.2em] text-blue-400 hover:opacity-80 transition-opacity border-b border-blue-400/30 pb-1">NEXT_INTEL: UNIFIED_CORE &gt;&gt;</Link>
-          </div>
-          
-          <div className="flex-grow flex flex-col justify-center relative z-10 py-6 md:py-12">
+
+          <div className="flex-grow flex flex-col justify-center relative z-10 pt-14 sm:pt-16 py-6 md:py-12">
             <div className="max-w-7xl space-y-4 md:space-y-6">
-              <h1 className="text-6xl md:text-[7rem] font-black tracking-tighter leading-[0.85] uppercase text-white">
+              <h1 className="text-4xl sm:text-6xl md:text-[7rem] font-black tracking-tighter leading-[0.85] uppercase text-white">
                 GEETA-AI <span className="text-neon">CONTENT FACTORY</span>
               </h1>
-              <p className="text-xl md:text-3xl text-white/70 leading-relaxed font-bold max-w-5xl uppercase tracking-tight">
+              <p className="text-base sm:text-xl md:text-3xl text-white/70 leading-relaxed font-bold max-w-5xl uppercase tracking-tight">
                 A self-healing content production system that turned human bottlenecks into autonomous scale.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6 max-w-7xl">
@@ -97,8 +93,8 @@ export default function GeetaAI() {
           </div>
         </header>
 
-        <section className="py-24 md:py-32 px-6 md:px-20 max-w-7xl mx-auto scroll-reveal">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <section className="py-14 sm:py-20 md:py-32 px-4 sm:px-6 md:px-20 max-w-7xl mx-auto scroll-reveal">
+          <div className="grid lg:grid-cols-2 gap-8 md:gap-16 items-center">
             <div className="space-y-12">
               <div className="space-y-4">
                 <div className="flex items-center gap-3 text-crimson mb-2">
@@ -153,7 +149,7 @@ export default function GeetaAI() {
           </div>
         </section>
 
-        <section className="py-24 md:py-32 bg-white/[0.02] border-y border-white/5 px-6 md:px-20 scroll-reveal">
+        <section className="py-14 sm:py-20 md:py-32 bg-white/[0.02] border-y border-white/5 px-4 sm:px-6 md:px-20 scroll-reveal">
           <div className="max-w-7xl mx-auto space-y-16">
             <div className="text-center space-y-4">
               <span className="text-neon font-black uppercase tracking-[0.4em] text-[10px] md:text-xs">// SYSTEM ARCHITECTURE: THE TRIAD</span>
@@ -167,9 +163,9 @@ export default function GeetaAI() {
           </div>
         </section>
 
-        <section className="py-24 md:py-32 px-6 md:px-20 max-w-7xl mx-auto space-y-40">
+        <section className="py-14 sm:py-20 md:py-32 px-4 sm:px-6 md:px-20 max-w-7xl mx-auto space-y-40">
             <div className="scroll-reveal">
-                <div className="grid lg:grid-cols-2 gap-20 items-center">
+                <div className="grid lg:grid-cols-2 gap-10 md:gap-20 items-center">
                     <div className="space-y-8">
                         <div className="flex items-center gap-4"><span className="px-2 py-1 bg-[#39FF14]/10 text-[#39FF14] text-[10px] font-bold border border-[#39FF14]/30 uppercase">PHASE_01</span><h3 className="text-2xl font-bold text-white uppercase tracking-tight">The "Tag" System</h3></div>
                         <p className="text-sm text-white/40 italic leading-relaxed uppercase">To ensure output works in Numon, the LLM is constrained to output Proprietary UI Tags instead of standard text. This turns unstructured text into structured code.</p>
@@ -187,7 +183,7 @@ export default function GeetaAI() {
                 </div>
             </div>
             <div className="scroll-reveal">
-                <div className="grid lg:grid-cols-2 gap-20 items-center">
+                <div className="grid lg:grid-cols-2 gap-10 md:gap-20 items-center">
                     <div className="terminal-block p-1 bg-[#0EA5E9]/20 rounded-sm">
                         <div className="bg-black p-8 md:p-12 rounded-sm space-y-8">
                             <div className="flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-white/40 uppercase"><span>Stage_Viewer_v2</span><span className="text-cyber-blue uppercase">Bi-Directional_Link_Active</span></div>
@@ -207,7 +203,7 @@ export default function GeetaAI() {
             </div>
         </section>
 
-        <section className="py-24 md:py-32 bg-white/[0.02] border-y border-white/5 px-6 md:px-20 scroll-reveal">
+        <section className="py-14 sm:py-20 md:py-32 bg-white/[0.02] border-y border-white/5 px-4 sm:px-6 md:px-20 scroll-reveal">
             <div className="max-w-7xl mx-auto space-y-16">
                 <div className="flex flex-col md:flex-row justify-between items-end gap-6">
                     <div className="space-y-4"><span className="text-neon font-black uppercase tracking-[0.4em] text-[10px] md:text-xs uppercase italic">// ADVANCED_MODULE: SELF_HEALING</span><h2 className="text-4xl font-bold text-white uppercase tracking-tighter uppercase">THE FEEDBACK <span className="text-neon uppercase">LOOP</span></h2></div>
@@ -231,7 +227,7 @@ export default function GeetaAI() {
             </div>
         </section>
 
-        <footer className="py-24 md:py-40 text-center border-t border-white/5 bg-[#080808]">
+        <footer className="py-14 sm:py-20 md:py-40 text-center border-t border-white/5 bg-[#080808]">
           <div className="max-w-4xl mx-auto px-6 space-y-12">
             <p className="text-[10px] text-white/20 uppercase tracking-[0.8em] font-bold uppercase">IMPACT_SUMMARY_LOG</p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { ProjectNav } from "@/components/ProjectNav";
 import {
   ArrowUp,
   ShoppingBag,
@@ -193,37 +193,24 @@ export default function NanoSkills() {
 
       <div className="grid-overlay min-h-screen">
 
+        <ProjectNav nextTo="/p/P8" nextLabel="MATH_0_TO_1" nextColor="text-purple-400" />
+
         {/* ── SECTION 1: HERO ── */}
-        <header className="min-h-screen flex flex-col px-6 md:px-20 relative overflow-hidden bg-[#050505] border-b border-white/5">
+        <header className="min-h-screen flex flex-col px-4 sm:px-6 md:px-20 relative overflow-hidden bg-[#050505] border-b border-white/5">
           <div className="scanline" />
 
-          <div className="w-full pt-10 flex items-center justify-between z-20">
-            <Link
-              to="/"
-              className="text-[10px] font-mono uppercase tracking-[0.4em] text-pink-400 hover:opacity-80 transition-opacity"
-            >
-              &lt;&lt; RETURN_TO_DASHBOARD
-            </Link>
-            <Link
-              to="/p/P8"
-              className="text-[10px] font-mono uppercase tracking-[0.2em] text-purple-400 hover:opacity-80 transition-opacity border-b border-purple-400/30 pb-1"
-            >
-              NEXT_INTEL: MATH_0_TO_1 &gt;&gt;
-            </Link>
-          </div>
-
-          <div className="flex-grow flex flex-col justify-center relative z-10 py-6 md:py-12">
+          <div className="flex-grow flex flex-col justify-center relative z-10 pt-14 sm:pt-16 py-6 md:py-12">
             <div className="max-w-7xl space-y-4 md:space-y-6">
               <div className="inline-flex items-center gap-2 mb-4 px-3 py-1 border border-pink-400/30 bg-pink-400/5 text-pink-400 text-[9px] font-bold tracking-[0.2em] uppercase">
                 <ShoppingBag size={10} /> // D2C · PRODUCT-LED GROWTH · VIRTUAL ECONOMY
               </div>
 
-              <h1 className="text-6xl md:text-[7rem] font-black tracking-tighter leading-[0.85] uppercase text-white">
+              <h1 className="text-4xl sm:text-6xl md:text-[7rem] font-black tracking-tighter leading-[0.85] uppercase text-white">
                 NANO <br />
                 <span className="text-pink-400">SKILLS</span>
               </h1>
 
-              <p className="text-xl md:text-2xl text-white/70 leading-relaxed font-bold max-w-5xl uppercase tracking-tight">
+              <p className="text-base sm:text-xl md:text-2xl text-white/70 leading-relaxed font-bold max-w-5xl uppercase tracking-tight">
                 Turning 30% of students who hoarded diamonds but never spent them
                 into a self-serve monetization engine. 3,000+ enrollments.
                 5% gross margin uplift. Zero sales agents.
@@ -255,7 +242,7 @@ export default function NanoSkills() {
         </header>
 
         {/* ── SECTION 2: DIAGNOSTIC ── */}
-        <section className="py-24 md:py-32 px-6 md:px-20 max-w-7xl mx-auto scroll-reveal">
+        <section className="py-14 sm:py-20 md:py-32 px-4 sm:px-6 md:px-20 max-w-7xl mx-auto scroll-reveal">
           <div className="mb-16 space-y-4">
             <span className="text-crimson opacity-60 font-bold uppercase tracking-[0.6em] text-[10px] block">
               // DIAGNOSTIC_OVERRIDE: REVENUE_LEFT_ON_TABLE
@@ -267,7 +254,7 @@ export default function NanoSkills() {
             </h2>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 md:gap-16 items-center">
             {/* LEFT: CAROUSEL */}
             <div className="space-y-12">
               <div className="relative min-h-[300px] flex flex-col justify-between">
@@ -389,7 +376,7 @@ export default function NanoSkills() {
         </section>
 
         {/* ── SECTION 3: ARCHITECTURE — DIAMOND ECONOMY ── */}
-        <section className="py-24 md:py-32 bg-white/[0.02] border-y border-white/5 px-6 md:px-20 scroll-reveal">
+        <section className="py-14 sm:py-20 md:py-32 bg-white/[0.02] border-y border-white/5 px-4 sm:px-6 md:px-20 scroll-reveal">
           <div className="max-w-7xl mx-auto space-y-16">
             <div className="text-center space-y-4">
               <span className="text-pink-400 font-black uppercase tracking-[0.4em] text-[10px] md:text-xs">
@@ -442,7 +429,7 @@ export default function NanoSkills() {
         </section>
 
         {/* ── SECTION 4: DEEP DIVE A — ENROLLMENT FUNNEL ── */}
-        <section className="py-24 md:py-32 px-6 md:px-20 max-w-7xl mx-auto scroll-reveal">
+        <section className="py-14 sm:py-20 md:py-32 px-4 sm:px-6 md:px-20 max-w-7xl mx-auto scroll-reveal">
           <div className="mb-16 space-y-4">
             <span className="text-pink-400 font-black uppercase tracking-[0.4em] text-[10px] md:text-xs">
               CONVERSION_SYSTEM
@@ -453,7 +440,7 @@ export default function NanoSkills() {
             </h2>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-20 items-start">
+          <div className="grid lg:grid-cols-2 gap-10 md:gap-20 items-start">
             {/* LEFT: DATA NODES */}
             <div className="space-y-12">
               {[
@@ -545,7 +532,7 @@ export default function NanoSkills() {
         </section>
 
         {/* ── SECTION 5: DEEP DIVE B — DISCOVERY ENGINE ── */}
-        <section className="py-24 md:py-40 bg-white/[0.02] border-y border-white/5 px-6 md:px-20 scroll-reveal">
+        <section className="py-14 sm:py-20 md:py-40 bg-white/[0.02] border-y border-white/5 px-4 sm:px-6 md:px-20 scroll-reveal">
           <div className="max-w-7xl mx-auto">
             <div className="mb-16 space-y-4">
               <span className="text-pink-400 font-black uppercase tracking-[0.4em] text-[10px] md:text-xs">
@@ -557,7 +544,7 @@ export default function NanoSkills() {
               </h2>
             </div>
 
-            <div className="grid lg:grid-cols-2 gap-20 items-start">
+            <div className="grid lg:grid-cols-2 gap-10 md:gap-20 items-start">
               {/* LEFT: HOMEPAGE TRAY TERMINAL */}
               <div className="terminal-block rounded-sm overflow-hidden">
                 <div className="bg-white/5 px-4 py-3 flex items-center justify-between border-b border-white/5">
@@ -660,7 +647,7 @@ export default function NanoSkills() {
         </section>
 
         {/* ── SECTION 6: FOOTER — IMPACT LOG ── */}
-        <footer className="py-24 md:py-40 text-center border-t border-white/5 bg-[#080808]">
+        <footer className="py-14 sm:py-20 md:py-40 text-center border-t border-white/5 bg-[#080808]">
           <div className="max-w-4xl mx-auto px-6 space-y-12">
             <p className="text-[10px] text-white/20 uppercase tracking-[0.8em] font-bold">IMPACT_SUMMARY_LOG</p>
 
