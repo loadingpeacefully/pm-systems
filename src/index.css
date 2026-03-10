@@ -33,33 +33,33 @@
   --t-invert: 0;
 }
 
-/* ── Light Theme ── */
+/* ── Light Theme — warm architectural / blueprint style ── */
 :root.light {
-  --t-bg: #f5f5f4;          /* stone-100 */
-  --t-bg2: #ffffff;
-  --t-text: #3f3f46;        /* zinc-700 */
-  --t-text-muted: #52525b;  /* zinc-600 */
-  --t-text-subtle: #71717a; /* zinc-500 */
-  --t-text-faint: #a1a1aa;  /* zinc-400 */
-  --t-text-ghost: #d4d4d8;  /* zinc-300 */
-  --t-heading: #18181b;     /* zinc-900 */
-  --t-neon: #15803d;        /* green-700 — readable on light */
-  --t-border: rgba(0, 0, 0, 0.1);
-  --t-border-hover: rgba(0, 0, 0, 0.25);
+  --t-bg: #e5e5e5;          /* warm gray canvas */
+  --t-bg2: #f4f4f4;         /* panel/card bg */
+  --t-text: #404040;        /* gray-700 — body text */
+  --t-text-muted: #525252;  /* gray-600 */
+  --t-text-subtle: #737373; /* gray-500 */
+  --t-text-faint: #a3a3a3;  /* gray-400 */
+  --t-text-ghost: #d4d4d4;  /* gray-300 */
+  --t-heading: #000000;     /* pure black headings */
+  --t-neon: #ff5500;        /* orange accent */
+  --t-border: #d1d5db;      /* gray-300 — visible structured borders */
+  --t-border-hover: #9ca3af; /* gray-400 */
   --t-panel-hover: rgba(0, 0, 0, 0.02);
-  --t-grid-line: rgba(0, 0, 0, 0.04);
-  --t-scanline: rgba(21, 128, 61, 0.08);
-  --t-shadow: rgba(0, 0, 0, 0.1);
-  --t-selection-bg: #15803d;
+  --t-grid-line: rgba(0, 0, 0, 0.08);
+  --t-scanline: rgba(255, 85, 0, 0.06);
+  --t-shadow: rgba(0, 0, 0, 0.15);
+  --t-selection-bg: #ff5500;
   --t-selection-text: #ffffff;
-  --t-terminal-bg: #fafaf9;    /* stone-50 */
-  --t-terminal-border: rgba(0, 0, 0, 0.1);
-  --t-badge-bg: rgba(0, 0, 0, 0.05);
-  --t-overlay-from: #f5f5f4;
-  --t-spotlight-a: rgba(21, 128, 61, 0.04);
-  --t-spotlight-b: rgba(21, 128, 61, 0.015);
-  --t-header-blur-bg: rgba(245, 245, 244, 0.98);
-  --t-header-blur-bg-light: rgba(245, 245, 244, 0.7);
+  --t-terminal-bg: #ffffff;     /* white terminals */
+  --t-terminal-border: #d1d5db; /* gray-300 */
+  --t-badge-bg: rgba(0, 0, 0, 0.04);
+  --t-overlay-from: #e5e5e5;
+  --t-spotlight-a: rgba(255, 85, 0, 0.03);
+  --t-spotlight-b: rgba(255, 85, 0, 0.01);
+  --t-header-blur-bg: rgba(244, 244, 244, 0.98);
+  --t-header-blur-bg-light: rgba(244, 244, 244, 0.8);
   --t-invert: 1;
 }
 
