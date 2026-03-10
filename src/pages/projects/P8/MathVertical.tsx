@@ -105,18 +105,18 @@ export default function MathVertical() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
-    <div className="bg-[#050505] text-[#d1d1d1] overflow-x-hidden selection:bg-violet-400 selection:text-white">
+    <div className="overflow-x-hidden selection:bg-violet-400 selection:text-white" style={{ background: 'var(--t-bg)', color: 'var(--t-text)' }}>
       <style>{`
         :root {
           --violet: #A78BFA;
           --crimson: #FF3131;
-          --bg: #050505;
+          --bg: var(--t-bg);
         }
         .mono { font-family: 'JetBrains Mono', monospace; }
         .text-crimson { color: var(--crimson); text-shadow: 0 0 10px rgba(255,49,49,0.3); }
         .grid-overlay {
-          background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-                            linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+          background-image: linear-gradient(var(--t-grid-line) 1px, transparent 1px),
+                            linear-gradient(90deg, var(--t-grid-line) 1px, transparent 1px);
           background-size: 40px 40px;
         }
         .scroll-reveal {
@@ -129,20 +129,20 @@ export default function MathVertical() {
           transform: translateY(0);
         }
         .terminal-block {
-          background: #0a0a0a;
-          border: 1px solid rgba(255,255,255,0.1);
-          box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+          background: var(--t-terminal-bg);
+          border: 1px solid var(--t-terminal-border);
+          box-shadow: var(--t-shadow);
         }
         .scanline {
           width: 100%; height: 2px;
-          background: rgba(167,139,250,0.05);
+          background: var(--t-scanline);
           position: absolute; top: 0; left: 0; z-index: 50;
           animation: scan 4s linear infinite;
           pointer-events: none;
         }
         @keyframes scan { from { top: 0; } to { top: 100%; } }
         .hud-border {
-          border: 1px solid rgba(255,255,255,0.1);
+          border: 1px solid var(--t-border);
           position: relative;
         }
         .hud-border-top::before {
@@ -169,12 +169,12 @@ export default function MathVertical() {
           position: absolute;
           right: -25px; top: 50%;
           transform: translateY(-50%);
-          color: rgba(255,255,255,0.1);
+          color: var(--t-border);
           font-family: 'JetBrains Mono';
           font-size: 14px;
         }
         .data-node {
-          border-left: 1px solid rgba(255,255,255,0.1);
+          border-left: 1px solid var(--t-border);
           padding-left: 1.5rem;
           position: relative;
         }
@@ -189,10 +189,10 @@ export default function MathVertical() {
         .diagram-container {
           font-size: 11px;
           line-height: 1.6;
-          color: rgba(255,255,255,0.4);
-          border: 1px solid rgba(255,255,255,0.05);
+          color: var(--t-text-subtle);
+          border: 1px solid var(--t-border);
           padding: 2rem;
-          background: rgba(0,0,0,0.4);
+          background: var(--t-terminal-bg);
         }
         @keyframes glitch-in {
           0% { opacity: 0; transform: translateX(-10px); clip-path: inset(0 100% 0 0); }
@@ -217,15 +217,16 @@ export default function MathVertical() {
           transition: width 1s ease-in-out;
         }
         ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: #050505; }
-        ::-webkit-scrollbar-thumb { background: #333; }
+        ::-webkit-scrollbar-track { background: var(--t-bg); }
+        ::-webkit-scrollbar-thumb { background: var(--t-border); }
         ::-webkit-scrollbar-thumb:hover { background: var(--violet); }
       `}</style>
 
       {showTopBtn && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-50 p-3 bg-black border border-white/20 text-white hover:border-violet-400 hover:text-violet-400 transition-all shadow-lg group"
+          className="fixed bottom-8 right-8 z-50 p-3 hover:border-violet-400 hover:text-violet-400 transition-all shadow-lg group"
+          style={{ background: 'var(--t-bg2)', border: '1px solid var(--t-border)', color: 'var(--t-heading)' }}
         >
           <ArrowUp size={20} className="group-hover:-translate-y-1 transition-transform" />
         </button>
@@ -236,7 +237,7 @@ export default function MathVertical() {
         {/* ── SECTION 1: HERO ── */}
         <ProjectNav nextTo="/p/P6" nextLabel="SUMMER_CAMP" nextColor="text-yellow-400" />
 
-        <header className="min-h-screen flex flex-col px-4 sm:px-6 md:px-20 relative overflow-hidden bg-[#050505] border-b border-white/5">
+        <header className="min-h-screen flex flex-col px-4 sm:px-6 md:px-20 relative overflow-hidden" style={{ background: 'var(--t-bg)', borderBottom: '1px solid var(--t-border)' }}>
           <div className="scanline" />
 
           <div className="flex-grow flex flex-col justify-center relative z-10 pt-14 sm:pt-16 py-6 md:py-12">
@@ -245,12 +246,12 @@ export default function MathVertical() {
                 <Brain size={10} /> // EDTECH · 0→1 BUILD · UNIT ECONOMICS
               </div>
 
-              <h1 className="text-4xl sm:text-6xl md:text-[7rem] font-black tracking-tighter leading-[0.85] uppercase text-white">
+              <h1 className="text-4xl sm:text-6xl md:text-[7rem] font-black tracking-tighter leading-[0.85] uppercase" style={{ color: 'var(--t-heading)' }}>
                 MATH <br />
                 <span className="text-violet-400">0 TO 1</span>
               </h1>
 
-              <p className="text-base sm:text-xl md:text-2xl text-white/70 leading-relaxed font-bold max-w-5xl uppercase tracking-tight">
+              <p className="text-base sm:text-xl md:text-2xl leading-relaxed font-bold max-w-5xl uppercase tracking-tight" style={{ color: 'var(--t-text-muted)' }}>
                 Building BrightChamps' proprietary Math vertical from a blank page —
                 curriculum architecture, AI-powered content at scale, and a new delivery
                 model that shifted 1:1 classes to 1:20 group sessions.
@@ -263,9 +264,9 @@ export default function MathVertical() {
                   { big: "1 → 20", small: "Students per teacher session" },
                   { big: "Grades 1–8", small: "US Common Core aligned" },
                 ].map((item, i) => (
-                  <div key={i} className="bg-white/[0.02] border border-white/10 p-6 hud-border hud-border-top relative">
-                    <div className="text-[28px] font-bold text-white mono tracking-tighter uppercase">{item.big}</div>
-                    <div className="text-[10px] uppercase tracking-widest text-white/40 mt-2">{item.small}</div>
+                  <div key={i} className="p-6 hud-border hud-border-top relative" style={{ background: 'var(--t-badge-bg)' }}>
+                    <div className="text-[28px] font-bold mono tracking-tighter uppercase" style={{ color: 'var(--t-heading)' }}>{item.big}</div>
+                    <div className="text-[10px] uppercase tracking-widest mt-2" style={{ color: 'var(--t-text-subtle)' }}>{item.small}</div>
                   </div>
                 ))}
               </div>
@@ -287,7 +288,7 @@ export default function MathVertical() {
             <span className="text-crimson opacity-60 font-bold uppercase tracking-[0.6em] text-[10px] block">
               // DIAGNOSTIC_OVERRIDE: THREE_FAILURE_MODES
             </span>
-            <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-white uppercase leading-[0.85]">
+            <h2 className="text-5xl md:text-7xl font-black tracking-tighter uppercase leading-[0.85]" style={{ color: 'var(--t-heading)' }}>
               WHY THE EXISTING MATH <br />
               PRODUCT WAS A{" "}
               <span className="text-crimson animate-glitch inline-block">DEAD END</span>
@@ -308,7 +309,7 @@ export default function MathVertical() {
                             {point.icon}
                             <span>DIAGNOSTIC_0{index + 1}: {point.title}</span>
                           </div>
-                          <p className="text-xl text-white/80 leading-relaxed font-light">{point.desc}</p>
+                          <p className="text-xl leading-relaxed font-light" style={{ color: 'var(--t-text-muted)' }}>{point.desc}</p>
                         </div>
                       )
                   )}
@@ -349,51 +350,51 @@ export default function MathVertical() {
             <div className="relative mt-8 lg:mt-0">
               <div className="absolute -left-8 top-10 w-8 h-[1px] bg-red-900/50 hidden lg:block" />
               <div className="absolute -left-8 top-10 w-[1px] h-20 bg-red-900/50 hidden lg:block" />
-              <div className="terminal-block bg-[#080808] border border-white/10 rounded-md overflow-hidden shadow-2xl relative">
-                <div className="bg-white/5 px-4 py-3 flex items-center justify-between border-b border-white/5">
+              <div className="terminal-block rounded-md overflow-hidden shadow-2xl relative">
+                <div className="px-4 py-3 flex items-center justify-between" style={{ background: 'var(--t-badge-bg)', borderBottom: '1px solid var(--t-border)' }}>
                   <div className="flex gap-2 opacity-50">
                     <div className="w-3 h-3 rounded-full bg-red-500/50" />
                     <div className="w-3 h-3 rounded-full bg-yellow-500/50" />
                     <div className="w-3 h-3 rounded-full bg-green-500/50" />
                   </div>
-                  <div className="font-mono text-[10px] text-white/30 uppercase tracking-widest">MATH_VERTICAL_AUDIT.log</div>
+                  <div className="font-mono text-[10px] uppercase tracking-widest" style={{ color: 'var(--t-text-ghost)' }}>MATH_VERTICAL_AUDIT.log</div>
                 </div>
                 <div className="p-8 font-mono text-xs leading-loose space-y-3">
-                  <div className="text-white/20 mb-2">// MATH_VERTICAL_AUDIT.log</div>
-                  <div className="flex gap-4 border-b border-white/5 pb-2">
-                    <span className="text-white/30">01</span>
-                    <div><span className="text-blue-400">CONTENT_VELOCITY</span> <span className="text-white">→ 10 worksheets/wk</span> <span className="text-crimson font-bold">[CEILING HIT]</span></div>
+                  <div className="mb-2" style={{ color: 'var(--t-text-ghost)' }}>// MATH_VERTICAL_AUDIT.log</div>
+                  <div className="flex gap-4 pb-2" style={{ borderBottom: '1px solid var(--t-border)' }}>
+                    <span style={{ color: 'var(--t-text-ghost)' }}>01</span>
+                    <div><span className="text-blue-400">CONTENT_VELOCITY</span> <span style={{ color: 'var(--t-heading)' }}>→ 10 worksheets/wk</span> <span className="text-crimson font-bold">[CEILING HIT]</span></div>
                   </div>
-                  <div className="flex gap-4 border-b border-white/5 pb-2">
-                    <span className="text-white/30">02</span>
+                  <div className="flex gap-4 pb-2" style={{ borderBottom: '1px solid var(--t-border)' }}>
+                    <span style={{ color: 'var(--t-text-ghost)' }}>02</span>
                     <div>
-                      <span className="text-blue-400">SME_TIME_ON_PEDAGOGY</span> <span className="text-white">→ ~20%</span> <span className="text-crimson font-bold">[CRITICAL: LOW]</span>
-                      <div className="text-white/40 mt-0.5">&gt;&gt; remaining 80%: JSON formatting</div>
+                      <span className="text-blue-400">SME_TIME_ON_PEDAGOGY</span> <span style={{ color: 'var(--t-heading)' }}>→ ~20%</span> <span className="text-crimson font-bold">[CRITICAL: LOW]</span>
+                      <div style={{ color: 'var(--t-text-subtle)' }} className=" mt-0.5">&gt;&gt; remaining 80%: JSON formatting</div>
                     </div>
                   </div>
-                  <div className="flex gap-4 border-b border-white/5 pb-2">
-                    <span className="text-white/30">03</span>
-                    <div><span className="text-blue-400">POST_CLASS_QUIZ_COMPLETION</span> <span className="text-white">→ 40%</span> <span className="text-crimson font-bold">[DISMAL]</span></div>
+                  <div className="flex gap-4 pb-2" style={{ borderBottom: '1px solid var(--t-border)' }}>
+                    <span style={{ color: 'var(--t-text-ghost)' }}>03</span>
+                    <div><span className="text-blue-400">POST_CLASS_QUIZ_COMPLETION</span> <span style={{ color: 'var(--t-heading)' }}>→ 40%</span> <span className="text-crimson font-bold">[DISMAL]</span></div>
                   </div>
-                  <div className="flex gap-4 border-b border-white/5 pb-2">
-                    <span className="text-white/30">04</span>
-                    <div><span className="text-blue-400">APP_CRASH_RATE (bad JSON)</span> <span className="text-white">→ 14%</span> <span className="text-crimson font-bold">[CRITICAL]</span></div>
+                  <div className="flex gap-4 pb-2" style={{ borderBottom: '1px solid var(--t-border)' }}>
+                    <span style={{ color: 'var(--t-text-ghost)' }}>04</span>
+                    <div><span className="text-blue-400">APP_CRASH_RATE (bad JSON)</span> <span style={{ color: 'var(--t-heading)' }}>→ 14%</span> <span className="text-crimson font-bold">[CRITICAL]</span></div>
                   </div>
-                  <div className="flex gap-4 border-b border-white/5 pb-3">
-                    <span className="text-white/30">05</span>
+                  <div className="flex gap-4 pb-3" style={{ borderBottom: '1px solid var(--t-border)' }}>
+                    <span style={{ color: 'var(--t-text-ghost)' }}>05</span>
                     <div>
-                      <span className="text-blue-400">DELIVERY_MODEL</span> <span className="text-white">→ 1:1</span>
-                      <div className="text-white/40 mt-0.5 space-y-0.5">
+                      <span className="text-blue-400">DELIVERY_MODEL</span> <span style={{ color: 'var(--t-heading)' }}>→ 1:1</span>
+                      <div style={{ color: 'var(--t-text-subtle)' }} className=" mt-0.5 space-y-0.5">
                         <div>&gt;&gt; teacher cost per session: FIXED</div>
                         <div>&gt;&gt; margin expansion path: <span className="text-crimson font-bold">NULL</span></div>
                       </div>
                     </div>
                   </div>
-                  <div className="flex gap-4 border-b border-white/5 pb-3">
-                    <span className="text-white/30">06</span>
+                  <div className="flex gap-4 pb-3" style={{ borderBottom: '1px solid var(--t-border)' }}>
+                    <span style={{ color: 'var(--t-text-ghost)' }}>06</span>
                     <div>
                       <span className="text-blue-400">COMPETITIVE_GAP</span>
-                      <div className="mt-0.5 space-y-0.5 text-white/50">
+                      <div className="mt-0.5 space-y-0.5 text-[var(--t-text-muted)]">
                         <div>&gt;&gt; IXL: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;adaptive AI practice <span className="text-violet-400">✓</span></div>
                         <div>&gt;&gt; Kumon: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;daily mastery system &nbsp;<span className="text-violet-400">✓</span></div>
                         <div>&gt;&gt; BrightChamps: static slides &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className="text-crimson">✗</span></div>
@@ -402,14 +403,14 @@ export default function MathVertical() {
                   </div>
                   <div className="pt-2 space-y-1">
                     <div className="text-crimson font-bold animate-pulse">&gt;&gt; NPI_TRIGGERED</div>
-                    <div className="text-white/40 pl-4">Target: Beat IXL on engagement.</div>
-                    <div className="text-white/40 pl-4">Beat Kumon on cost-per-lesson.</div>
+                    <div style={{ color: 'var(--t-text-subtle)' }} className=" pl-4">Target: Beat IXL on engagement.</div>
+                    <div style={{ color: 'var(--t-text-subtle)' }} className=" pl-4">Beat Kumon on cost-per-lesson.</div>
                     <div className="text-violet-400 font-bold pl-4">Ship in 6 months. <span className="animate-pulse">█</span></div>
                   </div>
                 </div>
               </div>
-              <div className="absolute -bottom-6 -right-6 bg-black border border-violet-400 px-6 py-4 shadow-[0_0_30px_rgba(167,139,250,0.15)]">
-                <div className="text-[10px] text-white/40 uppercase tracking-widest mb-1">Proposed Solution</div>
+              <div className="absolute -bottom-6 -right-6 bg-[var(--t-bg)] border border-violet-400 px-6 py-4 shadow-[0_0_30px_rgba(167,139,250,0.15)]">
+                <div className="text-[10px] text-[var(--t-text-subtle)] uppercase tracking-widest mb-1">Proposed Solution</div>
                 <div className="text-violet-400 font-bold font-mono">4-LAYER CURRICULUM &gt;&gt;</div>
               </div>
             </div>
@@ -417,13 +418,13 @@ export default function MathVertical() {
         </section>
 
         {/* ── SECTION 3: CURRICULUM FRAMEWORK (4-LAYER CLICK-TO-EXPAND) ── */}
-        <section className="py-14 sm:py-20 md:py-32 bg-white/[0.02] border-y border-white/5 px-4 sm:px-6 md:px-20 scroll-reveal">
+        <section className="py-14 sm:py-20 md:py-32 bg-[var(--t-badge-bg)] border-y border-[var(--t-border)] px-4 sm:px-6 md:px-20 scroll-reveal">
           <div className="max-w-7xl mx-auto space-y-16">
             <div className="text-center space-y-4">
               <span className="text-violet-400 font-black uppercase tracking-[0.4em] text-[10px] md:text-xs">
                 // CURRICULUM ARCHITECTURE: THE 4-LAYER FRAMEWORK
               </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-white uppercase tracking-tighter">
+              <h2 className="text-3xl md:text-4xl font-bold text-[var(--t-heading)] uppercase tracking-tighter">
                 BUILT TO SCALE <span className="text-violet-400">GLOBALLY.</span>
               </h2>
             </div>
@@ -436,15 +437,15 @@ export default function MathVertical() {
                   onClick={() =>
                     setActiveLayer(activeLayer === layer.index ? -1 : layer.index)
                   }
-                  className="border border-white/10 bg-[#0a0a0a] cursor-pointer hover:border-violet-500/40 transition-all overflow-hidden"
+                  className="border border-[var(--t-border)] bg-[var(--t-bg2)] cursor-pointer hover:border-violet-500/40 transition-all overflow-hidden"
                 >
                   <div className="flex items-center justify-between p-5">
                     <div className="flex items-center gap-6 flex-1 min-w-0">
-                      <span className="text-[10px] font-mono text-white/30 uppercase tracking-widest w-16 shrink-0">
+                      <span className="text-[10px] font-mono text-[var(--t-text-faint)] uppercase tracking-widest w-16 shrink-0">
                         {layer.label}
                       </span>
                       <div className={`milestone-bar ${layer.width} shrink-0`} />
-                      <span className="text-sm font-black text-white uppercase tracking-tight ml-4">
+                      <span className="text-sm font-black text-[var(--t-heading)] uppercase tracking-tight ml-4">
                         {layer.title}
                       </span>
                     </div>
@@ -454,14 +455,14 @@ export default function MathVertical() {
                   </div>
 
                   {activeLayer === layer.index && (
-                    <div className="px-5 pb-6 border-t border-white/5 pt-4">
+                    <div className="px-5 pb-6 border-t border-[var(--t-border)] pt-4">
                       <div className="text-[10px] font-mono text-violet-400 uppercase tracking-widest mb-2">
                         Example
                       </div>
-                      <div className="text-sm text-white/80 italic mb-4 font-mono">
+                      <div className="text-sm text-[var(--t-text)] italic mb-4 font-mono">
                         {layer.example}
                       </div>
-                      <p className="text-xs text-white/40 leading-relaxed uppercase">
+                      <p className="text-xs text-[var(--t-text-subtle)] leading-relaxed uppercase">
                         {layer.detail}
                       </p>
                     </div>
@@ -472,7 +473,7 @@ export default function MathVertical() {
 
             {/* LESSON STRUCTURE STRIP */}
             <div className="max-w-4xl mx-auto">
-              <div className="text-[10px] text-white/30 font-mono uppercase tracking-widest mb-4 text-center">
+              <div className="text-[10px] text-[var(--t-text-faint)] font-mono uppercase tracking-widest mb-4 text-center">
                 // CLASS SESSION STRUCTURE
               </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-0">
@@ -484,11 +485,11 @@ export default function MathVertical() {
                 ].map((step, i) => (
                   <div
                     key={i}
-                    className={`border border-white/10 bg-black p-4 ${i < 3 ? "pipeline-arrow" : ""}`}
+                    className={`border border-[var(--t-border)] bg-[var(--t-bg)] p-4 ${i < 3 ? "pipeline-arrow" : ""}`}
                   >
                     <div className="text-violet-400 text-[10px] font-bold uppercase mb-1">{step.label} / {step.time}</div>
-                    <div className="text-white text-xs font-bold uppercase mb-2">{step.title}</div>
-                    <div className="text-white/30 text-[10px] italic">{step.desc}</div>
+                    <div className="text-[var(--t-heading)] text-xs font-bold uppercase mb-2">{step.title}</div>
+                    <div className="text-[var(--t-text-faint)] text-[10px] italic">{step.desc}</div>
                   </div>
                 ))}
               </div>
@@ -502,7 +503,7 @@ export default function MathVertical() {
             <span className="text-violet-400 font-black uppercase tracking-[0.4em] text-[10px] md:text-xs">
               DELIVERY_SYSTEM
             </span>
-            <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-white uppercase leading-[0.9]">
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-[var(--t-heading)] uppercase leading-[0.9]">
               FROM 1:1 <br />
               TO <span className="text-violet-400">1:20</span>
             </h2>
@@ -529,7 +530,7 @@ export default function MathVertical() {
                   <span className="text-[10px] font-black text-violet-400 uppercase tracking-[0.3em] block mb-2">
                     {node.label}
                   </span>
-                  <p className="text-sm text-white/40 leading-relaxed italic uppercase font-bold tracking-tight">
+                  <p className="text-sm text-[var(--t-text-subtle)] leading-relaxed italic uppercase font-bold tracking-tight">
                     {node.desc}
                   </p>
                 </div>
@@ -539,25 +540,25 @@ export default function MathVertical() {
             {/* RIGHT: LIVE CLASS TERMINAL */}
             <div className="lg:sticky lg:top-40">
               <div className="terminal-block p-1 bg-gradient-to-br from-violet-500/20 to-transparent rounded-sm">
-                <div className="bg-[#080808] p-8 md:p-10 rounded-sm mono text-[11px] leading-relaxed">
-                  <div className="text-white/20 text-[9px] mb-1">// GROUP_CLASS_DASHBOARD — Live Session</div>
-                  <div className="text-white/20 text-[9px] mb-6">// Math: Place Value | Grade 4 | 1 Teacher : 18 Students</div>
+                <div className="bg-[var(--t-bg2)] p-8 md:p-10 rounded-sm mono text-[11px] leading-relaxed">
+                  <div className="text-[var(--t-text-ghost)] text-[9px] mb-1">// GROUP_CLASS_DASHBOARD — Live Session</div>
+                  <div className="text-[var(--t-text-ghost)] text-[9px] mb-6">// Math: Place Value | Grade 4 | 1 Teacher : 18 Students</div>
 
-                  <div className="flex justify-between items-center mb-4 pb-3 border-b border-white/5">
-                    <span className="text-white/50 font-bold uppercase text-[10px]">TEACHER VIEW</span>
+                  <div className="flex justify-between items-center mb-4 pb-3 border-b border-[var(--t-border)]">
+                    <span className="text-[var(--t-text-muted)] font-bold uppercase text-[10px]">TEACHER VIEW</span>
                     <span className="text-violet-400 animate-pulse font-black text-[10px]">[● LIVE]</span>
                   </div>
 
                   <div className="flex gap-2 mb-6">
                     {["TRIGGER QUIZ", "NEXT SLIDE", "WHITEBOARD"].map((btn) => (
-                      <span key={btn} className="border border-white/10 bg-white/5 px-3 py-1 text-[9px] font-mono text-white/40 cursor-pointer hover:border-violet-500/30 hover:text-violet-400 transition-colors">
+                      <span key={btn} className="border border-[var(--t-border)] bg-[var(--t-badge-bg)] px-3 py-1 text-[9px] font-mono text-[var(--t-text-subtle)] cursor-pointer hover:border-violet-500/30 hover:text-violet-400 transition-colors">
                         {btn}
                       </span>
                     ))}
                   </div>
 
                   <div className="mb-6">
-                    <div className="text-white/30 text-[9px] uppercase tracking-widest mb-3">STUDENT PROGRESS (18 connected)</div>
+                    <div className="text-[var(--t-text-faint)] text-[9px] uppercase tracking-widest mb-3">STUDENT PROGRESS (18 connected)</div>
                     <div className="space-y-2">
                       {[
                         { name: "Aanya R.", q: "Q3", w: "100%" },
@@ -566,19 +567,19 @@ export default function MathVertical() {
                         { name: "Kai T.", q: "Q1", w: "55%" },
                       ].map((s) => (
                         <div key={s.name} className="flex items-center gap-3">
-                          <div className="flex-1 h-1.5 bg-white/5 rounded-full overflow-hidden">
+                          <div className="flex-1 h-1.5 bg-[var(--t-badge-bg)] rounded-full overflow-hidden">
                             <div className="h-full bg-violet-400" style={{ width: s.w }} />
                           </div>
-                          <span className="text-white w-20 shrink-0">{s.name}</span>
+                          <span className="text-[var(--t-heading)] w-20 shrink-0">{s.name}</span>
                           <span className="text-violet-400">✓ {s.q}</span>
                         </div>
                       ))}
-                      <div className="text-white/20 text-[9px] pl-0">... 14 more</div>
+                      <div className="text-[var(--t-text-ghost)] text-[9px] pl-0">... 14 more</div>
                     </div>
                   </div>
 
-                  <div className="mb-6 border-t border-white/5 pt-4">
-                    <div className="text-white/30 text-[9px] uppercase tracking-widest mb-2">LIVE LEADERBOARD</div>
+                  <div className="mb-6 border-t border-[var(--t-border)] pt-4">
+                    <div className="text-[var(--t-text-faint)] text-[9px] uppercase tracking-widest mb-2">LIVE LEADERBOARD</div>
                     <div className="space-y-1 text-[10px]">
                       <div className="flex justify-between"><span>🥇 Aanya R.</span><span className="text-violet-400">320 pts</span></div>
                       <div className="flex justify-between"><span>🥈 Sarah L.</span><span className="text-violet-400">305 pts</span></div>
@@ -586,9 +587,9 @@ export default function MathVertical() {
                     </div>
                   </div>
 
-                  <div className="border-t border-white/5 pt-4 space-y-1 text-[10px]">
-                    <div><span className="text-violet-400 font-bold">WebSocket: CONNECTED</span> <span className="text-white/50">| Latency: 42ms</span></div>
-                    <div className="text-white/50">Reconnect attempts: 0 | Session: 38m</div>
+                  <div className="border-t border-[var(--t-border)] pt-4 space-y-1 text-[10px]">
+                    <div><span className="text-violet-400 font-bold">WebSocket: CONNECTED</span> <span className="text-[var(--t-text-muted)]">| Latency: 42ms</span></div>
+                    <div className="text-[var(--t-text-muted)]">Reconnect attempts: 0 | Session: 38m</div>
                   </div>
                 </div>
               </div>
@@ -597,13 +598,13 @@ export default function MathVertical() {
         </section>
 
         {/* ── SECTION 5: DEEP DIVE B — NUMON PRACTICE ZONE ── */}
-        <section className="py-14 sm:py-20 md:py-40 bg-white/[0.02] border-y border-white/5 px-4 sm:px-6 md:px-20 scroll-reveal">
+        <section className="py-14 sm:py-20 md:py-40 bg-[var(--t-badge-bg)] border-y border-[var(--t-border)] px-4 sm:px-6 md:px-20 scroll-reveal">
           <div className="max-w-7xl mx-auto">
             <div className="mb-16 space-y-4">
               <span className="text-violet-400 font-black uppercase tracking-[0.4em] text-[10px] md:text-xs">
                 PRACTICE_SYSTEM
               </span>
-              <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-white uppercase leading-[0.9]">
+              <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-[var(--t-heading)] uppercase leading-[0.9]">
                 THE DAILY <br />
                 <span className="text-violet-400">PRACTICE ENGINE</span>
               </h2>
@@ -612,39 +613,39 @@ export default function MathVertical() {
             <div className="grid lg:grid-cols-2 gap-10 md:gap-20 items-start">
               {/* LEFT: NUMON TERMINAL */}
               <div className="terminal-block rounded-sm overflow-hidden">
-                <div className="bg-white/5 px-4 py-3 flex items-center justify-between border-b border-white/5">
+                <div className="bg-[var(--t-badge-bg)] px-4 py-3 flex items-center justify-between border-b border-[var(--t-border)]">
                   <div className="flex gap-2 opacity-50">
                     <div className="w-3 h-3 rounded-full bg-red-500/50" />
                     <div className="w-3 h-3 rounded-full bg-yellow-500/50" />
                     <div className="w-3 h-3 rounded-full bg-green-500/50" />
                   </div>
-                  <div className="font-mono text-[10px] text-white/30 uppercase tracking-widest">NUMON_PRACTICE_ZONE</div>
+                  <div className="font-mono text-[10px] text-[var(--t-text-faint)] uppercase tracking-widest">NUMON_PRACTICE_ZONE</div>
                 </div>
                 <div className="p-6 mono text-[11px] leading-relaxed space-y-4">
-                  <div className="text-white/20 text-[9px]">// NUMON_PRACTICE_ZONE — Student: Rohan M. | Grade 4</div>
+                  <div className="text-[var(--t-text-ghost)] text-[9px]">// NUMON_PRACTICE_ZONE — Student: Rohan M. | Grade 4</div>
 
-                  <div className="border-b border-white/10 pb-4">
+                  <div className="border-b border-[var(--t-border)] pb-4">
                     <div className="flex justify-between items-center mb-3">
-                      <span className="text-white/50 font-bold uppercase text-[10px]">TODAY'S PRACTICE</span>
+                      <span className="text-[var(--t-text-muted)] font-bold uppercase text-[10px]">TODAY'S PRACTICE</span>
                       <span className="text-violet-400 font-black text-[10px]">[DAY 14 🔥]</span>
                     </div>
-                    <div className="text-white/40 text-[10px] mb-2">SKILL: Place Value — Sub-Skill 3</div>
-                    <div className="text-white/40 text-[10px] mb-1">Progress: <span className="text-violet-400">62% mastered</span></div>
-                    <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+                    <div style={{ color: 'var(--t-text-subtle)' }} className=" text-[10px] mb-2">SKILL: Place Value — Sub-Skill 3</div>
+                    <div style={{ color: 'var(--t-text-subtle)' }} className=" text-[10px] mb-1">Progress: <span className="text-violet-400">62% mastered</span></div>
+                    <div className="h-1.5 w-full bg-[var(--t-badge-bg)] rounded-full overflow-hidden">
                       <div className="h-full bg-violet-400 w-[62%]" />
                     </div>
                   </div>
 
-                  <div className="border border-white/10 p-4 space-y-3">
-                    <div className="text-white/30 text-[9px] uppercase tracking-widest">[ QUESTION 4 OF 10 ]</div>
-                    <div className="text-white font-bold">What is 4,506 in expanded form?</div>
-                    <div className="text-white/60 font-mono">
+                  <div className="border border-[var(--t-border)] p-4 space-y-3">
+                    <div className="text-[var(--t-text-faint)] text-[9px] uppercase tracking-widest">[ QUESTION 4 OF 10 ]</div>
+                    <div className="text-[var(--t-heading)] font-bold">What is 4,506 in expanded form?</div>
+                    <div className="text-[var(--t-text-muted)] font-mono">
                       4,000 + [&nbsp;&nbsp;&nbsp;&nbsp;] + 6
                     </div>
                     <div className="flex gap-4 text-[11px] mt-2">
-                      <span className="text-white/40">○ 500</span>
+                      <span style={{ color: 'var(--t-text-subtle)' }}>○ 500</span>
                       <span className="text-violet-400 font-bold">● 500</span>
-                      <span className="text-white/40">○ 50</span>
+                      <span style={{ color: 'var(--t-text-subtle)' }}>○ 50</span>
                     </div>
                     <div className="border border-violet-500/40 bg-violet-500/10 text-violet-400 text-center py-2 text-[10px] font-bold cursor-pointer hover:bg-violet-500/20 transition-colors">
                       [ CHECK ANSWER ]
@@ -656,24 +657,24 @@ export default function MathVertical() {
                     <div className="text-violet-400/60">MASTERY: 3 correct in a row → Sub-skill unlocked ✓</div>
                   </div>
 
-                  <div className="border-t border-white/10 pt-4 space-y-2">
-                    <div className="text-white/30 text-[9px] uppercase tracking-widest mb-2">MILESTONE PROGRESS</div>
+                  <div className="border-t border-[var(--t-border)] pt-4 space-y-2">
+                    <div className="text-[var(--t-text-faint)] text-[9px] uppercase tracking-widest mb-2">MILESTONE PROGRESS</div>
                     {[
                       { label: "Place Value", pct: 78, w: "w-[78%]" },
                       { label: "Fractions", pct: 24, w: "w-[24%]" },
                       { label: "Geometry", pct: 8, w: "w-[8%]" },
                     ].map((m) => (
                       <div key={m.label} className="flex items-center gap-3">
-                        <span className="text-white/40 w-24 shrink-0">{m.label}</span>
-                        <div className="flex-1 h-1.5 bg-white/5 rounded-full overflow-hidden">
+                        <span style={{ color: 'var(--t-text-subtle)' }} className=" w-24 shrink-0">{m.label}</span>
+                        <div className="flex-1 h-1.5 bg-[var(--t-badge-bg)] rounded-full overflow-hidden">
                           <div className={`h-full bg-violet-400 ${m.w}`} />
                         </div>
-                        <span className="text-white/30 w-8 text-right">{m.pct}%</span>
+                        <span className="text-[var(--t-text-faint)] w-8 text-right">{m.pct}%</span>
                       </div>
                     ))}
                   </div>
 
-                  <div className="border-t border-white/10 pt-3">
+                  <div className="border-t border-[var(--t-border)] pt-3">
                     <div className="text-pink-400 text-[10px]">[◆ Earn diamonds for streak days]</div>
                   </div>
                 </div>
@@ -681,7 +682,7 @@ export default function MathVertical() {
 
               {/* RIGHT: NARRATIVE + FEATURE CARDS */}
               <div className="space-y-8">
-                <p className="text-lg text-white/40 italic leading-relaxed uppercase">
+                <p className="text-lg text-[var(--t-text-subtle)] italic leading-relaxed uppercase">
                   Numon is the daily practice layer beneath the live class. Built Kumon-style —
                   short, focused, daily repetition with mastery gates. But AI-generated, so
                   every student gets a fresh problem set. Completing a streak earns Diamonds.
@@ -690,8 +691,8 @@ export default function MathVertical() {
                 <div className="space-y-4">
                   <div className="p-6 border-l-2 border-violet-500 bg-violet-500/5">
                     <span className="text-[10px] font-black text-violet-400 uppercase block mb-2 tracking-widest">AI_GENERATION</span>
-                    <h4 className="text-lg font-bold text-white uppercase mb-3">Zero Rote Learning</h4>
-                    <p className="text-xs text-white/50 italic leading-relaxed uppercase">
+                    <h4 className="text-lg font-bold text-[var(--t-heading)] uppercase mb-3">Zero Rote Learning</h4>
+                    <p className="text-xs text-[var(--t-text-muted)] italic leading-relaxed uppercase">
                       An internal AI chatbot model auto-generates question variations — swapping numbers, names,
                       and contexts. 10+ math input types supported: fractions, mixed numbers, algebra expressions.
                       67% reduction in content creation costs. 2,000+ worksheets shipped.
@@ -699,8 +700,8 @@ export default function MathVertical() {
                   </div>
                   <div className="p-6 border-l-2 border-violet-500 bg-violet-500/5">
                     <span className="text-[10px] font-black text-violet-400 uppercase block mb-2 tracking-widest">MASTERY_LOGIC</span>
-                    <h4 className="text-lg font-bold text-white uppercase mb-3">Retry-Based Progression</h4>
-                    <p className="text-xs text-white/50 italic leading-relaxed uppercase">
+                    <h4 className="text-lg font-bold text-[var(--t-heading)] uppercase mb-3">Retry-Based Progression</h4>
+                    <p className="text-xs text-[var(--t-text-muted)] italic leading-relaxed uppercase">
                       Wrong answers don't penalize — they trigger an easier variant of the same sub-skill.
                       3 correct answers in a row unlocks the next sub-skill and contributes to milestone
                       completion. Progress ties directly to the 4-layer curriculum framework.
@@ -713,11 +714,11 @@ export default function MathVertical() {
         </section>
 
         {/* ── SECTION 6: FOOTER — IMPACT LOG ── */}
-        <footer className="py-14 sm:py-20 md:py-40 text-center border-t border-white/5 bg-[#080808]">
+        <footer className="py-14 sm:py-20 md:py-40 text-center border-t border-[var(--t-border)] bg-[var(--t-bg2)]">
           <div className="max-w-4xl mx-auto px-6 space-y-12">
-            <p className="text-[10px] text-white/20 uppercase tracking-[0.8em] font-bold">IMPACT_SUMMARY_LOG</p>
+            <p className="text-[10px] text-[var(--t-text-ghost)] uppercase tracking-[0.8em] font-bold">IMPACT_SUMMARY_LOG</p>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16 border-y border-white/5 py-12">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16 border-y border-[var(--t-border)] py-12">
               {[
                 { val: "10 → 60/wk", label: "Lesson velocity" },
                 { val: "65%", label: "Teacher adoption Ph.1" },
@@ -725,13 +726,13 @@ export default function MathVertical() {
                 { val: "2,000+", label: "Worksheets shipped" },
               ].map((item, i) => (
                 <div key={i} className="space-y-1">
-                  <span className="text-4xl font-bold text-white font-mono tracking-tighter uppercase block">{item.val}</span>
-                  <span className="text-[10px] block text-white/30 uppercase font-bold tracking-widest mt-1">{item.label}</span>
+                  <span className="text-4xl font-bold text-[var(--t-heading)] font-mono tracking-tighter uppercase block">{item.val}</span>
+                  <span className="text-[10px] block text-[var(--t-text-faint)] uppercase font-bold tracking-widest mt-1">{item.label}</span>
                 </div>
               ))}
             </div>
 
-            <h2 className="text-3xl md:text-5xl font-black text-white italic leading-tight uppercase tracking-tighter">
+            <h2 className="text-3xl md:text-5xl font-black text-[var(--t-heading)] italic leading-tight uppercase tracking-tighter">
               "I built the Math vertical from a blank page — curriculum, content engine,
               and delivery model — and{" "}
               <span className="text-violet-400">changed how the unit economics worked</span>."

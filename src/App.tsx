@@ -41,6 +41,7 @@ import {
   ChevronUp,
   ArrowUp
 } from 'lucide-react';
+import { ThemeToggle } from "./components/ThemeToggle";
 
 // Import Registry for Project Pages
 import { PROJECT_PAGE_MAP } from "./pages/projects/registry";
@@ -205,7 +206,7 @@ const BackToTop = () => {
 
   if (!visible) return null;
   return (
-    <button onClick={scrollToTop} className="fixed bottom-8 right-8 z-50 p-3 bg-black border border-white/20 text-white hover:border-[#39FF14] hover:text-[#39FF14] transition-all shadow-lg group">
+    <button onClick={scrollToTop} className="fixed bottom-8 right-8 z-50 p-3 border transition-all shadow-lg group" style={{ background: 'var(--t-bg2)', borderColor: 'var(--t-border)', color: 'var(--t-heading)' }}>
       <ArrowUp size={20} className="group-hover:-translate-y-1 transition-transform" />
     </button>
   );
@@ -214,8 +215,8 @@ const BackToTop = () => {
 const GlitchText = ({ text }: { text: string }) => (
   <div className="relative inline-block group">
     <span className="relative z-10">{text}</span>
-    <span className="absolute top-0 left-0 -ml-[1px] translate-x-[2px] text-[#FF3131] opacity-0 group-hover:opacity-70 animate-pulse z-0 mix-blend-screen">{text}</span>
-    <span className="absolute top-0 left-0 -ml-[1px] -translate-x-[2px] text-[#39FF14] opacity-0 group-hover:opacity-70 animate-pulse delay-75 z-0 mix-blend-screen">{text}</span>
+    <span className="absolute top-0 left-0 -ml-[1px] translate-x-[2px] text-[#FF3131] opacity-0 group-hover:opacity-70 animate-pulse z-0">{text}</span>
+    <span className="absolute top-0 left-0 -ml-[1px] -translate-x-[2px] opacity-0 group-hover:opacity-70 animate-pulse delay-75 z-0" style={{ color: 'var(--t-neon)' }}>{text}</span>
   </div>
 );
 
@@ -232,10 +233,10 @@ const ProjectTile = ({ project, compact = false, onClick, isSelected }: any) => 
           className={`text-zinc-600 group-hover:text-white group-hover:scale-110 transition-all duration-300 ${isSelected ? textColor : ''} ${compact ? 'w-5 h-5 mb-2' : 'w-10 h-10 mb-4'}`}
           strokeWidth={1.5}
         />
-        <h3 className={`font-black text-white uppercase tracking-tight group-hover:tracking-widest transition-all ${compact ? 'text-[10px] mb-0.5' : 'text-sm mb-1'}`}>
+        <h3 className={`font-black uppercase tracking-tight group-hover:tracking-widest transition-all ${compact ? 'text-[10px] mb-0.5' : 'text-sm mb-1'}`} style={{ color: 'var(--t-heading)' }}>
           {project.title}
         </h3>
-        <div className={`font-mono text-zinc-500 uppercase tracking-wider group-hover:text-[#39FF14] transition-colors ${compact ? 'text-[8px]' : 'text-[9px]'}`}>
+        <div className={`font-mono uppercase tracking-wider transition-colors ${compact ? 'text-[8px]' : 'text-[9px]'}`} style={{ color: 'var(--t-text-subtle)' }}>
           {project.type}
         </div>
       </div>
@@ -251,24 +252,26 @@ const ProjectTile = ({ project, compact = false, onClick, isSelected }: any) => 
     </>
   );
 
-  const containerClasses = `group relative bg-[#0a0a0a] border hover:border-white/30 transition-all duration-300 overflow-hidden cursor-pointer 
+  const containerClasses = `group relative border transition-all duration-300 overflow-hidden cursor-pointer
     ${compact ? 'aspect-[4/3]' : 'aspect-square'}
-    ${isSelected ? `${borderColor} shadow-[0_0_15px_rgba(var(--tw-shadow-color),0.3)]` : 'border-white/10'}
+    ${isSelected ? `${borderColor} shadow-[0_0_15px_rgba(var(--tw-shadow-color),0.3)]` : ''}
   `;
 
+  const containerStyle = { background: 'var(--t-bg2)', borderColor: isSelected ? undefined : 'var(--t-border)' };
+
   if (onClick) {
-    return <div onClick={onClick} className={containerClasses}>{Content}</div>;
+    return <div onClick={onClick} className={containerClasses} style={containerStyle}>{Content}</div>;
   }
 
-  return <Link to={`/p/${project.id}`} className={containerClasses}>{Content}</Link>;
+  return <Link to={`/p/${project.id}`} className={containerClasses} style={containerStyle}>{Content}</Link>;
 };
 
 const ProjectIntelPanel = ({ project }: any) => {
   if (!project) return null;
 
   return (
-    <div className="mt-4 border-t border-white/10 pt-4 animate-in fade-in slide-in-from-top-2 duration-300">
-      <div className="bg-[#0a0a0a] border border-white/10 p-5 rounded-sm relative overflow-hidden">
+    <div className="mt-4 pt-4 animate-in fade-in slide-in-from-top-2 duration-300" style={{ borderTop: '1px solid var(--t-border)' }}>
+      <div className="p-5 rounded-sm relative overflow-hidden" style={{ background: 'var(--t-bg2)', border: '1px solid var(--t-border)' }}>
         <div className="absolute inset-0 opacity-10 pointer-events-none"
           style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '20px 20px' }}
         />
@@ -281,25 +284,25 @@ const ProjectIntelPanel = ({ project }: any) => {
               </span>
               <div className="h-px w-8 bg-white/10" />
             </div>
-            <h4 className="text-sm font-bold text-white uppercase mb-2 tracking-tight">PROJECT_OBJECTIVE</h4>
-            <p className="text-xs text-zinc-400 font-mono leading-relaxed">
+            <h4 className="text-sm font-bold uppercase mb-2 tracking-tight" style={{ color: 'var(--t-heading)' }}>PROJECT_OBJECTIVE</h4>
+            <p className="text-xs font-mono leading-relaxed" style={{ color: 'var(--t-text-muted)' }}>
               {project.desc}
             </p>
           </div>
 
           <div className="space-y-4">
             <div>
-              <div className="text-[9px] text-zinc-600 font-mono uppercase tracking-widest mb-1">Impact_Metrics</div>
+              <div className="text-[9px] font-mono uppercase tracking-widest mb-1" style={{ color: 'var(--t-text-faint)' }}>Impact_Metrics</div>
               <div className="flex flex-wrap gap-2">
                 {project.metrics && project.metrics.map((m: string, i: number) => (
-                  <span key={i} className="text-[10px] font-bold text-white bg-white/5 border border-white/5 px-2 py-1">
+                  <span key={i} className="text-[10px] font-bold px-2 py-1" style={{ color: 'var(--t-heading)', background: 'var(--t-badge-bg)', border: '1px solid var(--t-border)' }}>
                     {m}
                   </span>
                 ))}
               </div>
             </div>
             <div>
-              <div className="text-[9px] text-zinc-600 font-mono uppercase tracking-widest mb-1">Core_Stack</div>
+              <div className="text-[9px] font-mono uppercase tracking-widest mb-1" style={{ color: 'var(--t-text-faint)' }}>Core_Stack</div>
               <div className={`text-[10px] font-mono ${project.color}`}>
                 {project.stack}
               </div>
@@ -322,8 +325,8 @@ const MissionCard = ({ mission }: any) => {
   const visibleProjects = showAllProjects ? linkedProjects : linkedProjects.slice(0, INITIAL_LIMIT);
 
   return (
-    <div className="group relative border-l-2 border-white/10 pl-8 pb-16 last:pb-0">
-      <div className={`absolute -left-[9px] top-0 w-4 h-4 rounded-full border-2 bg-[#050505] transition-colors duration-300 ${isOpen ? mission.border + ' ' + mission.bg : 'border-zinc-700 group-hover:border-white'}`} />
+    <div className="group relative border-l-2 pl-8 pb-16 last:pb-0" style={{ borderColor: 'var(--t-border)' }}>
+      <div className={`absolute -left-[9px] top-0 w-4 h-4 rounded-full border-2 transition-colors duration-300 ${isOpen ? mission.border + ' ' + mission.bg : 'border-zinc-700 group-hover:border-white'}`} style={{ background: 'var(--t-bg)' }} />
 
       <div
         className="flex flex-col sm:flex-row sm:items-center justify-between cursor-pointer mb-6 gap-3"
@@ -334,21 +337,21 @@ const MissionCard = ({ mission }: any) => {
             <span className={`text-[10px] font-mono font-bold tracking-[0.2em] ${mission.color}`}>
               //{mission.id}
             </span>
-            <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">
+            <span className="text-[10px] font-mono uppercase tracking-widest" style={{ color: 'var(--t-text-subtle)' }}>
               {mission.period}
             </span>
           </div>
-          <h3 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tighter group-hover:text-zinc-200 transition-colors">
+          <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tighter transition-colors" style={{ color: 'var(--t-heading)' }}>
             {mission.company}
           </h3>
-          <div className="text-xs sm:text-sm font-bold text-zinc-400 uppercase tracking-widest mt-1">
+          <div className="text-xs sm:text-sm font-bold uppercase tracking-widest mt-1" style={{ color: 'var(--t-text-muted)' }}>
             {mission.role}
           </div>
         </div>
 
-        <div className={`self-start sm:self-auto mt-1 sm:mt-0 flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 border border-white/10 rounded-full transition-all ${isOpen ? mission.bg : 'bg-transparent'}`}>
+        <div className={`self-start sm:self-auto mt-1 sm:mt-0 flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 border rounded-full transition-all ${isOpen ? mission.bg : 'bg-transparent'}`} style={{ borderColor: 'var(--t-border)' }}>
           <div className={`w-2 h-2 rounded-full ${isOpen ? 'animate-pulse ' + mission.accent : 'bg-zinc-600'}`} />
-          <span className={`text-[9px] font-mono font-bold uppercase tracking-widest ${isOpen ? 'text-white' : 'text-zinc-500'}`}>
+          <span className={`text-[9px] font-mono font-bold uppercase tracking-widest`} style={{ color: isOpen ? 'var(--t-heading)' : 'var(--t-text-subtle)' }}>
             {mission.status.replace(/_/g, ' ')}
           </span>
           <ChevronRight size={14} className={`text-zinc-500 transition-transform duration-300 ${isOpen ? 'rotate-90' : ''}`} />
@@ -356,13 +359,13 @@ const MissionCard = ({ mission }: any) => {
       </div>
 
       <div className={`overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? 'max-h-[1200px] opacity-100' : 'max-h-0 opacity-50'}`}>
-        <div className="bg-[#0a0a0a] border border-white/10 p-6 md:p-8 rounded-sm mb-6">
+        <div className="p-6 md:p-8 rounded-sm mb-6" style={{ background: 'var(--t-bg2)', border: '1px solid var(--t-border)' }}>
           <div className="grid grid-cols-1 gap-8">
 
             {mission.brief && (
-              <div className="border-b border-white/10 pb-6">
-                <div className="text-[10px] text-zinc-500 font-mono uppercase tracking-widest mb-2">Mission Brief</div>
-                <p className="text-sm text-zinc-300 leading-relaxed font-mono">
+              <div className="pb-6" style={{ borderBottom: '1px solid var(--t-border)' }}>
+                <div className="text-[10px] font-mono uppercase tracking-widest mb-2" style={{ color: 'var(--t-text-subtle)' }}>Mission Brief</div>
+                <p className="text-sm leading-relaxed font-mono" style={{ color: 'var(--t-text)' }}>
                   {mission.brief}
                 </p>
               </div>
@@ -370,10 +373,10 @@ const MissionCard = ({ mission }: any) => {
 
             <div>
               <div className="flex items-center justify-between mb-4">
-                <div className="text-[10px] text-zinc-500 font-mono uppercase tracking-widest">
-                  Key Projects Delivered <span className="text-zinc-700 ml-2">// CLICK TO VIEW DETAILS</span>
+                <div className="text-[10px] font-mono uppercase tracking-widest" style={{ color: 'var(--t-text-subtle)' }}>
+                  Key Projects Delivered <span className="ml-2" style={{ color: 'var(--t-text-ghost)' }}>// CLICK TO VIEW DETAILS</span>
                 </div>
-                <div className="text-[9px] font-mono text-zinc-600">
+                <div className="text-[9px] font-mono" style={{ color: 'var(--t-text-faint)' }}>
                   [{linkedProjects.length} MODULES]
                 </div>
               </div>
@@ -407,7 +410,8 @@ const MissionCard = ({ mission }: any) => {
                           e.stopPropagation();
                           setShowAllProjects(!showAllProjects);
                         }}
-                        className="flex items-center gap-2 px-4 py-2 border border-white/10 bg-white/[0.02] hover:bg-white/[0.05] text-[10px] font-mono font-bold text-zinc-400 hover:text-white uppercase tracking-widest transition-all rounded-full"
+                        className="flex items-center gap-2 px-4 py-2 text-[10px] font-mono font-bold uppercase tracking-widest transition-all rounded-full"
+                        style={{ border: '1px solid var(--t-border)', background: 'var(--t-panel-hover)', color: 'var(--t-text-muted)' }}
                       >
                         {showAllProjects ? (
                           <>Collapse <ChevronUp size={12} /></>
@@ -419,8 +423,8 @@ const MissionCard = ({ mission }: any) => {
                   )}
                 </>
               ) : (
-                <div className="h-20 flex items-center justify-center border border-white/5 border-dashed rounded bg-white/[0.01]">
-                  <span className="text-[10px] font-mono text-zinc-700 uppercase">No Public Modules</span>
+                <div className="h-20 flex items-center justify-center border-dashed rounded" style={{ border: '1px dashed var(--t-border)', background: 'var(--t-panel-hover)' }}>
+                  <span className="text-[10px] font-mono uppercase" style={{ color: 'var(--t-text-ghost)' }}>No Public Modules</span>
                 </div>
               )}
 
@@ -435,21 +439,21 @@ const MissionCard = ({ mission }: any) => {
 };
 
 const AwardTile = ({ award }: any) => (
-  <div className="flex items-center justify-between p-4 bg-[#0a0a0a] border border-white/10 hover:border-[#39FF14]/30 hover:bg-white/[0.02] transition-all group">
+  <div className="flex items-center justify-between p-4 transition-all group" style={{ background: 'var(--t-bg2)', border: '1px solid var(--t-border)' }}>
     <div className="flex items-center gap-4">
-      <div className="p-2 rounded bg-white/5 text-zinc-500 group-hover:text-[#39FF14] transition-colors">
+      <div className="p-2 rounded transition-colors" style={{ background: 'var(--t-badge-bg)', color: 'var(--t-text-subtle)' }}>
         <award.icon size={18} />
       </div>
       <div>
-        <h4 className="text-xs font-bold text-white uppercase tracking-wide group-hover:text-[#39FF14] transition-colors">
+        <h4 className="text-xs font-bold uppercase tracking-wide transition-colors" style={{ color: 'var(--t-heading)' }}>
           {award.title}
         </h4>
-        <div className="text-[9px] font-mono text-zinc-500 uppercase tracking-wider">
+        <div className="text-[9px] font-mono uppercase tracking-wider" style={{ color: 'var(--t-text-subtle)' }}>
           {award.org}
         </div>
       </div>
     </div>
-    <div className="text-[10px] font-mono font-bold text-zinc-600 group-hover:text-white transition-colors">
+    <div className="text-[10px] font-mono font-bold transition-colors" style={{ color: 'var(--t-text-faint)' }}>
       {award.year}
     </div>
   </div>
@@ -484,23 +488,26 @@ function HomePortfolio() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#050505] text-[#d1d1d1] font-sans selection:bg-[#39FF14] selection:text-black overflow-x-hidden">
+    <div className="min-h-screen font-sans overflow-x-hidden" style={{ background: 'var(--t-bg)', color: 'var(--t-text)', ['--tw-selection-bg' as string]: 'var(--t-selection-bg)' }}>
+      <style>{`
+        .home-root ::selection { background: var(--t-selection-bg); color: var(--t-selection-text); }
+      `}</style>
 
       {/* GLOBAL STYLES */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Inter:wght@400;700;900&display=swap');
         body { font-family: 'Inter', sans-serif; }
         .mono { font-family: 'JetBrains Mono', monospace; }
-        
+
         .grid-bg {
           background-size: 40px 40px;
-          background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                            linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+          background-image: linear-gradient(to right, var(--t-grid-line) 1px, transparent 1px),
+                            linear-gradient(to bottom, var(--t-grid-line) 1px, transparent 1px);
         }
-        
+
         .scanline {
           position: fixed; top: 0; left: 0; width: 100%; height: 2px;
-          background: rgba(57, 255, 20, 0.1);
+          background: var(--t-scanline);
           animation: scan 4s linear infinite; pointer-events: none; z-index: 50;
         }
         @keyframes scan { 0% { top: -10px; } 100% { top: 100vh; } }
@@ -533,7 +540,7 @@ function HomePortfolio() {
           100% { background-position: 200% center; }
         }
         .header-shimmer {
-          background: linear-gradient(90deg, transparent 0%, rgba(57,255,20,0.4) 50%, transparent 100%);
+          background: linear-gradient(90deg, transparent 0%, var(--t-scanline) 50%, transparent 100%);
           background-size: 200% 100%;
           animation: shimmer 3s ease-in-out infinite;
         }
@@ -552,7 +559,7 @@ function HomePortfolio() {
           transform: 'translate(-50%, -50%)',
           width: '600px',
           height: '600px',
-          background: 'radial-gradient(circle, rgba(57,255,20,0.04) 0%, rgba(57,255,20,0.015) 30%, transparent 70%)',
+          background: `radial-gradient(circle, var(--t-spotlight-a) 0%, var(--t-spotlight-b) 30%, transparent 70%)`,
           borderRadius: '50%',
           transition: 'left 0.08s ease-out, top 0.08s ease-out',
         }}
@@ -562,28 +569,30 @@ function HomePortfolio() {
       <BackToTop />
 
       {/* HEADER */}
-      <header className={`header-enter fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b transition-all duration-500 ${scrolled ? 'bg-[#050505]/98 border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.6)]' : 'bg-[#050505]/70 border-white/5'}`}>
+      <header className="header-enter fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b transition-all duration-500" style={{ background: scrolled ? 'var(--t-header-blur-bg)' : 'var(--t-header-blur-bg-light)', borderColor: scrolled ? 'var(--t-border)' : 'transparent', boxShadow: scrolled ? '0 4px 30px var(--t-shadow)' : 'none' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
           {/* Logo / Name */}
           <div className="flex items-center gap-2 sm:gap-3">
             <div className="relative flex items-center justify-center w-6 h-6">
-              <div className="absolute w-6 h-6 bg-[#39FF14]/10 rounded-full animate-ping" style={{ animationDuration: '2.5s' }} />
-              <div className="w-2 h-2 bg-[#39FF14] rounded-full shadow-[0_0_8px_#39FF14]" />
+              <div className="absolute w-6 h-6 rounded-full animate-ping" style={{ background: 'color-mix(in srgb, var(--t-neon) 10%, transparent)', animationDuration: '2.5s' }} />
+              <div className="w-2 h-2 rounded-full" style={{ background: 'var(--t-neon)', boxShadow: '0 0 8px var(--t-neon)' }} />
             </div>
-            <div className="text-xs sm:text-sm font-black tracking-[0.15em] sm:tracking-widest text-white uppercase">
-              SUNEET<span className="text-[#39FF14]">.JAGDEV</span><span className="cursor-blink text-[#39FF14] ml-px">_</span>
+            <div className="text-xs sm:text-sm font-black tracking-[0.15em] sm:tracking-widest uppercase" style={{ color: 'var(--t-heading)' }}>
+              SUNEET<span style={{ color: 'var(--t-neon)' }}>.JAGDEV</span><span className="cursor-blink ml-px" style={{ color: 'var(--t-neon)' }}>_</span>
             </div>
           </div>
 
           {/* Right side */}
           <div className="flex items-center gap-3 sm:gap-4">
-            <div className="hidden sm:flex items-center gap-1.5 text-[9px] font-mono text-zinc-500 uppercase tracking-widest">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#39FF14] shadow-[0_0_4px_#39FF14] animate-pulse" />
+            <div className="hidden sm:flex items-center gap-1.5 text-[9px] font-mono uppercase tracking-widest" style={{ color: 'var(--t-text-subtle)' }}>
+              <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: 'var(--t-neon)', boxShadow: '0 0 4px var(--t-neon)' }} />
               Available
             </div>
+            <ThemeToggle />
             <a
               href="mailto:suneet@jagdev.in"
-              className="flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 border border-white/15 text-[9px] sm:text-[10px] font-bold tracking-widest text-white hover:bg-[#39FF14] hover:text-black hover:border-[#39FF14] transition-all duration-200 uppercase"
+              className="flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 border text-[9px] sm:text-[10px] font-bold tracking-widest transition-all duration-200 uppercase"
+              style={{ borderColor: 'var(--t-border)', color: 'var(--t-heading)' }}
             >
               <MessageSquare size={10} />
               <span className="hidden xs:inline sm:inline">Contact</span>
@@ -603,15 +612,15 @@ function HomePortfolio() {
         <section className="mb-20 sm:mb-32 lg:mb-40 relative overflow-hidden rounded-sm">
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end py-10 sm:py-16 px-0 sm:px-2">
             <div className="lg:col-span-8">
-              <div className="inline-flex items-center gap-2 mb-6 sm:mb-8 px-3 py-1 border border-[#39FF14]/30 bg-[#39FF14]/5 text-[#39FF14] text-[9px] font-bold tracking-[0.2em] uppercase">
+              <div className="inline-flex items-center gap-2 mb-6 sm:mb-8 px-3 py-1 border text-[9px] font-bold tracking-[0.2em] uppercase" style={{ borderColor: 'color-mix(in srgb, var(--t-neon) 30%, transparent)', background: 'color-mix(in srgb, var(--t-neon) 5%, transparent)', color: 'var(--t-neon)' }}>
                 <Terminal size={10} /> System Architect // Product Builder
               </div>
-              <h1 className="text-5xl sm:text-6xl md:text-[7rem] leading-[0.85] font-black text-white tracking-tighter uppercase mb-6 sm:mb-8">
+              <h1 className="text-5xl sm:text-6xl md:text-[7rem] leading-[0.85] font-black tracking-tighter uppercase mb-6 sm:mb-8" style={{ color: 'var(--t-heading)' }}>
                 <GlitchText text="ARCHITECTING" /> <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-500 to-zinc-700">SCALE.</span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r" style={{ backgroundImage: `linear-gradient(to right, var(--t-text-subtle), var(--t-text-ghost))` }}>SCALE.</span>
               </h1>
-              <p className="text-base sm:text-xl md:text-2xl text-white/60 max-w-2xl font-medium leading-relaxed">
-                I transform fragmented chaos into unified systems. Specializing in <span className="text-white">Platform Consolidation</span>, <span className="text-white">AI Automation</span>, and <span className="text-white">Monetization Engines</span>.
+              <p className="text-base sm:text-xl md:text-2xl max-w-2xl font-medium leading-relaxed" style={{ color: 'var(--t-text-muted)' }}>
+                I transform fragmented chaos into unified systems. Specializing in <span style={{ color: 'var(--t-heading)' }}>Platform Consolidation</span>, <span style={{ color: 'var(--t-heading)' }}>AI Automation</span>, and <span style={{ color: 'var(--t-heading)' }}>Monetization Engines</span>.
               </p>
             </div>
 
@@ -622,9 +631,9 @@ function HomePortfolio() {
                 { label: "Systems Unified", val: "14+" },
                 { label: "Revenue Impact", val: "+18%" }
               ].map((s, i) => (
-                <div key={i} className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-white/10 pb-2 gap-1">
-                  <span className="text-[9px] sm:text-[10px] font-mono text-zinc-500 uppercase tracking-widest">{s.label}</span>
-                  <span className="text-lg sm:text-xl font-bold text-[#39FF14] mono">{s.val}</span>
+                <div key={i} className="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-2 gap-1" style={{ borderBottom: '1px solid var(--t-border)' }}>
+                  <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-widest" style={{ color: 'var(--t-text-subtle)' }}>{s.label}</span>
+                  <span className="text-lg sm:text-xl font-bold mono" style={{ color: 'var(--t-neon)' }}>{s.val}</span>
                 </div>
               ))}
             </div>
@@ -633,12 +642,12 @@ function HomePortfolio() {
 
         {/* 2. THE MISSION LOG (EXPERIENCE) */}
         <section className="mb-20 sm:mb-32 lg:mb-40">
-          <div className="flex items-end justify-between mb-10 sm:mb-16 border-b border-white/10 pb-5 sm:pb-6">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white uppercase tracking-tighter flex items-center gap-3 sm:gap-4">
-              <Server size={24} className="text-[#39FF14] sm:w-8 sm:h-8" />
+          <div className="flex items-end justify-between mb-10 sm:mb-16 pb-5 sm:pb-6" style={{ borderBottom: '1px solid var(--t-border)' }}>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black uppercase tracking-tighter flex items-center gap-3 sm:gap-4" style={{ color: 'var(--t-heading)' }}>
+              <Server size={24} className="sm:w-8 sm:h-8" style={{ color: 'var(--t-neon)' }} />
               Mission Log
             </h2>
-            <span className="font-mono text-[10px] text-zinc-500 uppercase tracking-widest hidden md:block">
+            <span className="font-mono text-[10px] uppercase tracking-widest hidden md:block" style={{ color: 'var(--t-text-subtle)' }}>
               // DECRYPTING_CAREER_HISTORY...
             </span>
           </div>
@@ -653,13 +662,13 @@ function HomePortfolio() {
         {/* 3. THE ARSENAL (PROJECTS) */}
         <section className="mb-20 sm:mb-32 lg:mb-40">
           <div className="flex items-end justify-between mb-8 sm:mb-12">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white uppercase tracking-tighter flex items-center gap-3 sm:gap-4">
-              <Layout size={24} className="text-[#39FF14] sm:w-8 sm:h-8" />
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black uppercase tracking-tighter flex items-center gap-3 sm:gap-4" style={{ color: 'var(--t-heading)' }}>
+              <Layout size={24} className="sm:w-8 sm:h-8" style={{ color: 'var(--t-neon)' }} />
               The Build Grid
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/10 border border-white/10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-px border" style={{ background: 'var(--t-border)', borderColor: 'var(--t-border)' }}>
             {visibleProjects.map((project) => (
               <ProjectTile key={project.id} project={project} />
             ))}
@@ -669,7 +678,8 @@ function HomePortfolio() {
             <div className="flex justify-center mt-8">
               <button
                 onClick={() => setShowAllShips(!showAllShips)}
-                className="flex items-center gap-2 text-xs font-bold text-white border border-[#39FF14] px-6 py-3 uppercase tracking-widest hover:bg-[#39FF14] hover:text-black transition-all"
+                className="flex items-center gap-2 text-xs font-bold px-6 py-3 uppercase tracking-widest transition-all border"
+                style={{ color: 'var(--t-heading)', borderColor: 'var(--t-neon)' }}
               >
                 {showAllShips ? (
                   <>Collapse System <ChevronUp size={14} /></>
@@ -683,34 +693,35 @@ function HomePortfolio() {
 
         {/* 4. BIO-METRICS (PERSONAL) */}
         <section className="mb-20 sm:mb-32">
-          <div className="flex items-end justify-between mb-10 sm:mb-16 border-b border-white/10 pb-5 sm:pb-6">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white uppercase tracking-tighter flex items-center gap-3 sm:gap-4">
-              <Activity size={24} className="text-[#39FF14] sm:w-8 sm:h-8" />
+          <div className="flex items-end justify-between mb-10 sm:mb-16 pb-5 sm:pb-6" style={{ borderBottom: '1px solid var(--t-border)' }}>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black uppercase tracking-tighter flex items-center gap-3 sm:gap-4" style={{ color: 'var(--t-heading)' }}>
+              <Activity size={24} className="sm:w-8 sm:h-8" style={{ color: 'var(--t-neon)' }} />
               Human O.S.
             </h2>
-            <span className="font-mono text-[10px] text-zinc-500 uppercase tracking-widest hidden md:block">
+            <span className="font-mono text-[10px] uppercase tracking-widest hidden md:block" style={{ color: 'var(--t-text-subtle)' }}>
               // DIAGNOSTICS_ONLINE
             </span>
           </div>
 
           {/* Marquee Container */}
-          <div className="w-full overflow-hidden border-y border-white/10 bg-[#0a0a0a] py-12 relative group">
-            <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[#050505] to-transparent z-10 pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[#050505] to-transparent z-10 pointer-events-none" />
+          <div className="w-full overflow-hidden py-12 relative group" style={{ borderTop: '1px solid var(--t-border)', borderBottom: '1px solid var(--t-border)', background: 'var(--t-bg2)' }}>
+            <div className="absolute left-0 top-0 bottom-0 w-32 z-10 pointer-events-none" style={{ background: `linear-gradient(to right, var(--t-overlay-from), transparent)` }} />
+            <div className="absolute right-0 top-0 bottom-0 w-32 z-10 pointer-events-none" style={{ background: `linear-gradient(to left, var(--t-overlay-from), transparent)` }} />
 
             {/* Stream 1: Left */}
             <div className="flex gap-6 animate-marquee mb-6 hover:[animation-play-state:paused]">
               {[...FACTS_STREAM_1, ...FACTS_STREAM_1, ...FACTS_STREAM_1].map((fact, i) => (
                 <div
                   key={`r1-${i}`}
-                  className="flex-shrink-0 w-[280px] bg-[#050505] border border-white/10 p-5 flex items-center gap-4 hover:border-white/30 hover:bg-white/[0.02] transition-all"
+                  className="flex-shrink-0 w-[280px] border p-5 flex items-center gap-4 transition-all"
+                  style={{ background: 'var(--t-bg)', borderColor: 'var(--t-border)' }}
                 >
-                  <div className={`p-2.5 rounded bg-white/5 border border-white/5 ${fact.color}`}>
+                  <div className={`p-2.5 rounded border ${fact.color}`} style={{ background: 'var(--t-badge-bg)', borderColor: 'var(--t-border)' }}>
                     <fact.icon size={18} />
                   </div>
                   <div>
-                    <div className="text-[9px] font-mono text-zinc-500 mb-1 uppercase tracking-wider">{fact.sub}</div>
-                    <div className="text-xs font-bold text-white uppercase">{fact.text}</div>
+                    <div className="text-[9px] font-mono mb-1 uppercase tracking-wider" style={{ color: 'var(--t-text-subtle)' }}>{fact.sub}</div>
+                    <div className="text-xs font-bold uppercase" style={{ color: 'var(--t-heading)' }}>{fact.text}</div>
                   </div>
                 </div>
               ))}
@@ -721,14 +732,15 @@ function HomePortfolio() {
               {[...FACTS_STREAM_2, ...FACTS_STREAM_2, ...FACTS_STREAM_2].map((fact, i) => (
                 <div
                   key={`r2-${i}`}
-                  className="flex-shrink-0 w-[280px] bg-[#050505] border border-white/10 p-5 flex items-center gap-4 hover:border-white/30 hover:bg-white/[0.02] transition-all"
+                  className="flex-shrink-0 w-[280px] border p-5 flex items-center gap-4 transition-all"
+                  style={{ background: 'var(--t-bg)', borderColor: 'var(--t-border)' }}
                 >
-                  <div className={`p-2.5 rounded bg-white/5 border border-white/5 ${fact.color}`}>
+                  <div className={`p-2.5 rounded border ${fact.color}`} style={{ background: 'var(--t-badge-bg)', borderColor: 'var(--t-border)' }}>
                     <fact.icon size={18} />
                   </div>
                   <div>
-                    <div className="text-[9px] font-mono text-zinc-500 mb-1 uppercase tracking-wider">{fact.sub}</div>
-                    <div className="text-xs font-bold text-white uppercase">{fact.text}</div>
+                    <div className="text-[9px] font-mono mb-1 uppercase tracking-wider" style={{ color: 'var(--t-text-subtle)' }}>{fact.sub}</div>
+                    <div className="text-xs font-bold uppercase" style={{ color: 'var(--t-heading)' }}>{fact.text}</div>
                   </div>
                 </div>
               ))}
@@ -738,12 +750,12 @@ function HomePortfolio() {
 
         {/* 5. TROPHY CASE (AWARDS) */}
         <section className="mb-20 sm:mb-32 lg:mb-40">
-          <div className="flex items-end justify-between mb-10 sm:mb-16 border-b border-white/10 pb-5 sm:pb-6">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white uppercase tracking-tighter flex items-center gap-3 sm:gap-4">
-              <Trophy size={24} className="text-[#39FF14] sm:w-8 sm:h-8" />
+          <div className="flex items-end justify-between mb-10 sm:mb-16 pb-5 sm:pb-6" style={{ borderBottom: '1px solid var(--t-border)' }}>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black uppercase tracking-tighter flex items-center gap-3 sm:gap-4" style={{ color: 'var(--t-heading)' }}>
+              <Trophy size={24} className="sm:w-8 sm:h-8" style={{ color: 'var(--t-neon)' }} />
               Trophy Case
             </h2>
-            <span className="font-mono text-[10px] text-zinc-500 uppercase tracking-widest hidden md:block">
+            <span className="font-mono text-[10px] uppercase tracking-widest hidden md:block" style={{ color: 'var(--t-text-subtle)' }}>
               // HALL_OF_RECORDS
             </span>
           </div>
@@ -756,8 +768,8 @@ function HomePortfolio() {
         </section>
 
         {/* FOOTER */}
-        <footer className="pt-16 sm:pt-20 border-t border-white/10 flex flex-col items-center justify-center text-center">
-          <h2 className="text-4xl sm:text-6xl md:text-9xl font-black text-white tracking-tighter uppercase mb-6 sm:mb-8 hover:text-[#39FF14] transition-colors cursor-pointer leading-[0.9]">
+        <footer className="pt-16 sm:pt-20 flex flex-col items-center justify-center text-center" style={{ borderTop: '1px solid var(--t-border)' }}>
+          <h2 className="text-4xl sm:text-6xl md:text-9xl font-black tracking-tighter uppercase mb-6 sm:mb-8 transition-colors cursor-pointer leading-[0.9]" style={{ color: 'var(--t-heading)' }}>
             Get In <br /> Touch.
           </h2>
           <div className="flex flex-wrap justify-center gap-6 sm:gap-8 mb-10 sm:mb-12">
@@ -765,13 +777,14 @@ function HomePortfolio() {
               <a
                 key={link}
                 href="#"
-                className="text-xs sm:text-sm font-bold text-zinc-500 hover:text-white uppercase tracking-widest transition-colors"
+                className="text-xs sm:text-sm font-bold uppercase tracking-widest transition-colors"
+                style={{ color: 'var(--t-text-subtle)' }}
               >
                 {link}
               </a>
             ))}
           </div>
-          <div className="font-mono text-xs text-zinc-700 uppercase tracking-widest mb-10 sm:mb-12 px-4 text-center">
+          <div className="font-mono text-xs uppercase tracking-widest mb-10 sm:mb-12 px-4 text-center" style={{ color: 'var(--t-text-ghost)' }}>
             © {new Date().getFullYear()} Suneet Jagdev. Built in React & Tailwind.
           </div>
         </footer>
@@ -794,7 +807,7 @@ function ProjectPage() {
 
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-[#050505] flex items-center justify-center text-[#39FF14] font-mono animate-pulse">
+      <div className="min-h-screen flex items-center justify-center font-mono animate-pulse" style={{ background: 'var(--t-bg)', color: 'var(--t-neon)' }}>
         LOADING_NODE...
       </div>
     }>
